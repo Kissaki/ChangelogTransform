@@ -33,7 +33,7 @@ namespace changelog_transform
             var linearWriter = new LinearHistoryWriter("history-linear.html");
             linearWriter.Write(history);
 
-            var groupWriter = new GroupHistoryWriter("history-grouped.html");
+            var groupWriter = new CategoryHistoryWriter("history-grouped.html");
             groupWriter.Write(history);
 
             //Console.WriteLine("ENTER to exit");

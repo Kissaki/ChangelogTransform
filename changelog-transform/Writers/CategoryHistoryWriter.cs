@@ -6,11 +6,11 @@ using System.Text.RegularExpressions;
 
 namespace changelog_transform.Writers
 {
-    class GroupHistoryWriter : HistoryWriter
+    class CategoryHistoryWriter : HistoryWriter
     {
-        private static Dictionary<Group, string[]> CommitMapping = new Dictionary<Group, string[]>
+        private static Dictionary<Category, string[]> CommitMapping = new Dictionary<Category, string[]>
         {
-            { Group.Features, new string[] {
+            { Category.Features, new string[] {
                 "c40b0b00",
                 "304bf438",
                 "7c2d1a3f",
@@ -45,7 +45,7 @@ namespace changelog_transform.Writers
                 "5b104e09",
                 "de27cd7b",
             } },
-            { Group.Improvements, new string[] {
+            { Category.Improvements, new string[] {
                 "679eacd7",
                 "b422e0a9",
                 "f07f0c86",
@@ -78,7 +78,7 @@ namespace changelog_transform.Writers
                 "4e459a9b",
                 "ab78e6c9",
             } },
-            { Group.Bugfixes, new string[] {
+            { Category.Bugfixes, new string[] {
                 "77233edf",
                 "ed424afa",
                 "ea165cde",
@@ -88,7 +88,7 @@ namespace changelog_transform.Writers
                 "1c00533b",
                 "78604d85",
             } },
-            { Group.Hardening, new string[] {
+            { Category.Hardening, new string[] {
                 "b6e17cac",
                 "9837c4dc",
                 "17fa695b",
@@ -98,7 +98,7 @@ namespace changelog_transform.Writers
                 "e740ea5e",
                 "996a3df4",
             } },
-            { Group.BuildInfrastructure, new string[] {
+            { Category.BuildInfrastructure, new string[] {
                 "7d649aa5",
                 "d74b5b04",
                 "82fa0e60",
@@ -111,7 +111,7 @@ namespace changelog_transform.Writers
                 "630a17ba",
                 "0fdb7c17",
             } },
-            { Group.Code, new string[] {
+            { Category.Code, new string[] {
                 #region collapse
                 "8b044264",
                 "14597920",
@@ -178,99 +178,99 @@ namespace changelog_transform.Writers
                 "d9e0d08f",
                 "9ee9e8ad",
             } },
-            { Group.Translation, new string[] {
+            { Category.Translation, new string[] {
                 "52272e28",
                 "8632246f",
                 "de2e0868",
                 "f1eb6425",
             } },
-            { Group.PositionalAudio, new string[] {
+            { Category.PositionalAudio, new string[] {
                 "398b7733",
                 "61ad05c9",
                 "9f6c08b2",
                 "9f327bee",
                 "19efac30",
             } },
-            { Group.Thirdparty, new string[] {
+            { Category.Thirdparty, new string[] {
                 "3aa91793",
             } },
-            { Group.Installer, new string[] {
+            { Category.Installer, new string[] {
                 "fcc2a390",
                 "e7282052",
             } },
-            { Group.Theme, new string[] {
+            { Category.Theme, new string[] {
                 "7fbd9d43",
             } },
-            { Group.Overlay, new string[] {
+            { Category.Overlay, new string[] {
                 "0e358bff",
             } },
-            { Group.ProtocolDocumentation, new string[] {
+            { Category.ProtocolDocumentation, new string[] {
                 "6eecd624",
                 "eda74f21",
             } },
         };
-        private static Dictionary<string, Group> CommitMappingTransformed = CommitMapping.SelectMany(x => x.Value, (x, y) => new KeyValuePair<string, Group>(y, x.Key)).ToDictionary(x => x.Key, x => x.Value);
+        private static Dictionary<string, Category> CommitMappingTransformed = CommitMapping.SelectMany(x => x.Value, (x, y) => new KeyValuePair<string, Category>(y, x.Key)).ToDictionary(x => x.Key, x => x.Value);
 
         private FileInfo TargetFile { get; }
 
-        private Group[] GroupValues = Enum.GetValues(typeof(Group)).Cast<Group>().ToArray();
-        private string GroupName(Group group) => Enum.GetName(typeof(Group), group);
+        private Category[] CategoryValues = Enum.GetValues(typeof(Category)).Cast<Category>().ToArray();
+        private string CategoryName(Category category) => Enum.GetName(typeof(Category), category);
 
-        private Dictionary<Group, List<HistoryItem>> Groups = new Dictionary<Group, List<HistoryItem>>();
+        private Dictionary<Category, List<HistoryItem>> Categories = new Dictionary<Category, List<HistoryItem>>();
 
-        public GroupHistoryWriter(string filename)
+        public CategoryHistoryWriter(string filename)
         {
             TargetFile = new FileInfo(filename);
         }
 
         internal void Write(List<HistoryItem> history)
         {
-            CategorizeCommitsIntoGroups(history);
-            WriteGroupedHistory(Groups);
+            Categorize(history);
+            WriteHistory(Categories);
         }
 
-        private void WriteGroupedHistory(Dictionary<Group, List<HistoryItem>> groups)
+        private void WriteHistory(Dictionary<Category, List<HistoryItem>> categories)
         {
             using var fs = TargetFile.CreateText();
-            fs.WriteLine("<h1>Grouped Changes</h1>");
+            fs.WriteLine("<h1>Categorized Changes</h1>");
 
             var isFirst = true;
-            foreach (Group group in GroupValues)
+            foreach (Category category in CategoryValues)
             {
-                var items = groups[group];
-                CreateGroup(fs, group, items, isOpen: isFirst);
+                var items = categories[category];
+                WriteCategory(fs, category, items, isOpen: isFirst);
                 isFirst = false;
             }
         }
 
-        private void CreateGroup(StreamWriter fs, Group group, List<HistoryItem> items, bool isOpen)
+        private void WriteCategory(StreamWriter fs, Category cateory, List<HistoryItem> items, bool isOpen)
         {
             var openAttribute = isOpen ? "open" : "";
-            fs.WriteLine(@$"<details {openAttribute}><summary><h2 style=""display:inline"">{GroupName(group)}</h2> ({items.Count})</summary>");
+            fs.WriteLine(@$"<details {openAttribute}><summary><h2 style=""display:inline"">{CategoryName(cateory)}</h2> ({items.Count})</summary>");
             fs.Write(CreateTable(items));
             fs.WriteLine("</details>");
         }
 
-        private void CategorizeCommitsIntoGroups(List<HistoryItem> history)
+        private void Categorize(List<HistoryItem> history)
         {
-            foreach (Group group in GroupValues)
+            foreach (Category cateory in CategoryValues)
             {
-                Groups.Add(group, new List<HistoryItem>());
+                Categories.Add(cateory, new List<HistoryItem>());
             }
 
             foreach (var item in history)
             {
-                GroupLine(item);
+                CategorizeItem(item);
             }
 
-            Console.WriteLine("Grouped:");
-            foreach (Group group in GroupValues)
+            Console.WriteLine("Categorized:");
+            foreach (Category category in CategoryValues)
             {
-                Console.WriteLine($"* {Enum.GetName(typeof(Group), group)} {Groups[group].Count}");
+                Console.WriteLine($"* {Enum.GetName(typeof(Category), category)} {Categories[category].Count}");
             }
         }
 
-        private void GroupLine(HistoryItem item)
+        private void CategorizeItem(HistoryItem item)
         {
             if (item == null)
             {
@@ -278,121 +278,121 @@ namespace changelog_transform.Writers
                 return;
             }
 
-            var group = GetLineGroup(item);
-            Groups[group].Add(item);
+            var category = GetLineCategory(item);
+            Categories[category].Add(item);
         }
 
-        private Group GetLineGroup(HistoryItem item)
+        private Category GetLineCategory(HistoryItem item)
         {
             var hash = item.Hash;
             var title = item.Title;
 
-            if (CommitMappingTransformed.TryGetValue(hash, out var mappedGroup))
+            if (CommitMappingTransformed.TryGetValue(hash, out var mappedCategory))
             {
-                return mappedGroup;
+                return mappedCategory;
             }
             else if (IsWordMatch(title, "translation", "Translation", "translations", ".ts", "MumbleTransifexBot"))
             {
-                return Group.Translation;
+                return Category.Translation;
             }
             else if (title.StartsWith("Overlay") || title.StartsWith("overlay")
                 || IsWordMatch(title, "overlay", "OverlayClient", "Overlay", "drawOverlay", "overlays", "OverlayPrivateWin", "overlay_exe", "overlay_gl", "OverlayConfig", "mumble_ol", "HardHook", "winhook", "Hooks")
                 )
             {
-                return Group.Overlay;
+                return Category.Overlay;
             }
             else if (title.StartsWith("plugins/") || title.StartsWith("Plugins") || title.Contains("positional audio") || IsWordMatch(title, "PA", "Plugin", "Plugins", "plugins", "plugin"))
             {
-                return Group.PositionalAudio;
+                return Category.PositionalAudio;
             }
             else if (IsWordMatch(title, "installer"))
             {
-                return Group.Installer;
+                return Category.Installer;
             }
             else if (title.Contains("3rdparty"))
             {
-                return Group.Thirdparty;
+                return Category.Thirdparty;
             }
             else if (title.Contains("theme") || IsWordMatch(title, "icon", "icons", "ApplicationPalette"))
             {
-                return Group.Theme;
+                return Category.Theme;
             }
             else if (title.StartsWith("Bump version") || title.Contains("QT_") || title.Contains("Q_")
                 || IsWordMatch(title, "submodule", "build", "compiler.pri", "header guard", "refac", "Refac", "refacs", "Refactor", "Refactoring", "guard define", ".pri", "qmake", "LICENSE", "license", "CHANGES", @"C\+\+11")
                 )
             {
-                return Group.Code;
+                return Category.Code;
             }
             else if (IsWordMatch(title, "grpc"))
             {
-                return Group.Grpc;
+                return Category.Grpc;
             }
             else if (IsWordMatch(title, "Ice", "ice"))
             {
-                return Group.Ice;
+                return Category.Ice;
             }
             else if (IsWordMatch(title, "protocol documentation"))
             {
-                return Group.ProtocolDocumentation;
+                return Category.ProtocolDocumentation;
             }
             else if (IsWordMatch(title, "scripts", ".pro", "buildenv", "travis-ci", "appveyor"))
             {
-                return Group.BuildInfrastructure;
+                return Category.BuildInfrastructure;
             }
             else if (title.StartsWith("src/tests") || title.StartsWith("tests/") || IsWordMatch(title, "OverlayTest", "tests"))
             {
-                return Group.Tests;
+                return Category.Tests;
             }
             else if (IsWordMatch(title, "Opus"))
             {
-                return Group.Opus;
+                return Category.Opus;
             }
             else if (IsWordMatch(title, "bonjour"))
             {
-                return Group.Bonjour;
+                return Category.Bonjour;
             }
             else if (IsWordMatch(title, "Qt 5", "Qt5"))
             {
-                return Group.Qt5;
+                return Category.Qt5;
             }
             else if (IsWordMatch(title, "Qt 4", "Qt4"))
             {
-                return Group.Qt4;
+                return Category.Qt4;
             }
             else if (title.StartsWith("GlobalShortcut") || IsWordMatch(title, "GlobalShortcut", "Shortcut", "shortcut"))
             {
-                return Group.GlobalShortcut;
+                return Category.GlobalShortcut;
             }
             else if (IsWordMatch(title, "BanList", "Banlist"))
             {
-                return Group.BanList;
+                return Category.BanList;
             }
             else if (title.StartsWith("OSInfo"))
             {
-                return Group.OSInfo;
+                return Category.OSInfo;
             }
             else if (IsWordMatch(title, "Fix", "Fixes", "Fixed", "fix"))
             {
-                return Group.Bugfixes;
+                return Category.Bugfixes;
             }
             else if (IsWordMatch(title, "LCD", "G15", "g15helper"))
             {
-                return Group.G15Lcd;
+                return Category.G15Lcd;
             }
             else if (IsWordMatch(title, "filter", "filtering"))
             {
-                return Group.Filter;
+                return Category.Filter;
             }
             else if (title.StartsWith("TextToSpeech"))
             {
-                return Group.TextToSpeech;
+                return Category.TextToSpeech;
             }
             else if (title.Contains("OPENSSL") || IsWordMatch(title, "SSL", "ssl", "sslCiphers", "sslciphers", "SSLCipherInfo", "lssl", "OpenSSL", "QSslSocket", "QSslSocket", "SSLCipherInfoTable", "OPENSSL"))
             {
-                return Group.SSL;
+                return Category.SSL;
             }
 
-            return Group.Misc;
+            return Category.Misc;
         }
 
         private bool IsWordMatch(string text, params string[] words) => words.Any(word => Regex.IsMatch(text, $@"\b{word}\b"));

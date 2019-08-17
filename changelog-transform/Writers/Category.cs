@@ -1,6 +1,6 @@
 ﻿namespace changelog_transform.Writers
 {
-    enum Group
+    enum Category
     {
         // Everything uncategorized
         Misc,
