@@ -180,6 +180,7 @@ namespace changelog_transform.Writers
                 "15fbe1d7",
                 "d9e0d08f",
                 "9ee9e8ad",
+                "faddfda5",
             } },
             { Category.Translation, new string[] {
                 "52272e28",
