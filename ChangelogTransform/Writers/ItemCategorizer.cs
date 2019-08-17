@@ -7,6 +7,10 @@ namespace changelog_transform.Writers
 {
     class ItemCategorizer
     {
+        private static List<string> IgnoreHash = new List<string>
+        {
+        };
+
         private static Dictionary<Category, string[]> CommitMapping = new Dictionary<Category, string[]>
         {
             { Category.Features, new string[] {
@@ -222,9 +226,8 @@ namespace changelog_transform.Writers
 
         public void Add(HistoryItem item)
         {
-            if (item == null)
+            if (IgnoreHash.Contains(item.Hash))
             {
-                Console.WriteLine("WARN: line is null");
                 return;
             }
 
@@ -241,103 +244,103 @@ namespace changelog_transform.Writers
             {
                 return mappedCategory;
             }
-            else if (IsWordMatch(title, "translation", "Translation", "translations", ".ts", "MumbleTransifexBot"))
+            if (IsWordMatch(title, "translation", "Translation", "translations", ".ts", "MumbleTransifexBot"))
             {
                 return Category.Translation;
             }
-            else if (title.StartsWith("Overlay") || title.StartsWith("overlay")
+            if (title.StartsWith("Overlay") || title.StartsWith("overlay")
                 || IsWordMatch(title, "overlay", "OverlayClient", "Overlay", "drawOverlay", "overlays", "OverlayPrivateWin", "overlay_exe", "overlay_gl", "OverlayConfig", "mumble_ol", "HardHook", "winhook", "Hooks")
                 )
             {
                 return Category.Overlay;
             }
-            else if (title.StartsWith("plugins/") || title.StartsWith("Plugins") || title.Contains("positional audio") || IsWordMatch(title, "PA", "Plugin", "Plugins", "plugins", "plugin"))
+            if (title.StartsWith("plugins/") || title.StartsWith("Plugins") || title.Contains("positional audio") || IsWordMatch(title, "PA", "Plugin", "Plugins", "plugins", "plugin"))
             {
                 return Category.PositionalAudio;
             }
-            else if (IsWordMatch(title, "installer"))
+            if (IsWordMatch(title, "installer"))
             {
                 return Category.Installer;
             }
-            else if (title.Contains("3rdparty"))
+            if (title.Contains("3rdparty"))
             {
                 return Category.Thirdparty;
             }
-            else if (title.Contains("theme") || IsWordMatch(title, "icon", "icons", "ApplicationPalette"))
+            if (title.Contains("theme") || IsWordMatch(title, "icon", "icons", "ApplicationPalette"))
             {
                 return Category.Theme;
             }
-            else if (title.StartsWith("Bump version") || title.Contains("QT_") || title.Contains("Q_")
+            if (title.StartsWith("Bump version") || title.Contains("QT_") || title.Contains("Q_")
                 || IsWordMatch(title, "submodule", "build", "compiler.pri", "header guard", "refac", "Refac", "refacs", "Refactor", "Refactoring", "guard define", ".pri", "qmake", "LICENSE", "license", "CHANGES", @"C\+\+11")
                 )
             {
                 return Category.Code;
             }
-            else if (IsWordMatch(title, "grpc"))
+            if (IsWordMatch(title, "grpc"))
             {
                 return Category.Grpc;
             }
-            else if (IsWordMatch(title, "Ice", "ice"))
+            if (IsWordMatch(title, "Ice", "ice"))
             {
                 return Category.Ice;
             }
-            else if (IsWordMatch(title, "protocol documentation"))
+            if (IsWordMatch(title, "protocol documentation"))
             {
                 return Category.ProtocolDocumentation;
             }
-            else if (IsWordMatch(title, "scripts", ".pro", "buildenv", "travis-ci", "appveyor"))
+            if (IsWordMatch(title, "scripts", ".pro", "buildenv", "travis-ci", "appveyor"))
             {
                 return Category.BuildInfrastructure;
             }
-            else if (title.StartsWith("src/tests") || title.StartsWith("tests/") || IsWordMatch(title, "OverlayTest", "tests"))
+            if (title.StartsWith("src/tests") || title.StartsWith("tests/") || IsWordMatch(title, "OverlayTest", "tests"))
             {
                 return Category.Tests;
             }
-            else if (IsWordMatch(title, "Opus"))
+            if (IsWordMatch(title, "Opus"))
             {
                 return Category.Opus;
             }
-            else if (IsWordMatch(title, "bonjour"))
+            if (IsWordMatch(title, "bonjour"))
             {
                 return Category.Bonjour;
             }
-            else if (IsWordMatch(title, "Qt 5", "Qt5"))
+            if (IsWordMatch(title, "Qt 5", "Qt5"))
             {
                 return Category.Qt5;
             }
-            else if (IsWordMatch(title, "Qt 4", "Qt4"))
+            if (IsWordMatch(title, "Qt 4", "Qt4"))
             {
                 return Category.Qt4;
             }
-            else if (title.StartsWith("GlobalShortcut") || IsWordMatch(title, "GlobalShortcut", "Shortcut", "shortcut"))
+            if (title.StartsWith("GlobalShortcut") || IsWordMatch(title, "GlobalShortcut", "Shortcut", "shortcut"))
             {
                 return Category.GlobalShortcut;
             }
-            else if (IsWordMatch(title, "BanList", "Banlist"))
+            if (IsWordMatch(title, "BanList", "Banlist"))
             {
                 return Category.BanList;
             }
-            else if (title.StartsWith("OSInfo"))
+            if (title.StartsWith("OSInfo"))
             {
                 return Category.OSInfo;
             }
-            else if (IsWordMatch(title, "Fix", "Fixes", "Fixed", "fix"))
+            if (IsWordMatch(title, "Fix", "Fixes", "Fixed", "fix"))
             {
                 return Category.Bugfixes;
             }
-            else if (IsWordMatch(title, "LCD", "G15", "g15helper"))
+            if (IsWordMatch(title, "LCD", "G15", "g15helper"))
             {
                 return Category.G15Lcd;
             }
-            else if (IsWordMatch(title, "filter", "filtering"))
+            if (IsWordMatch(title, "filter", "filtering"))
             {
                 return Category.Filter;
             }
-            else if (title.StartsWith("TextToSpeech"))
+            if (title.StartsWith("TextToSpeech"))
             {
                 return Category.TextToSpeech;
             }
-            else if (title.Contains("OPENSSL") || IsWordMatch(title, "SSL", "ssl", "sslCiphers", "sslciphers", "SSLCipherInfo", "lssl", "OpenSSL", "QSslSocket", "QSslSocket", "SSLCipherInfoTable", "OPENSSL"))
+            if (title.Contains("OPENSSL") || IsWordMatch(title, "SSL", "ssl", "sslCiphers", "sslciphers", "SSLCipherInfo", "lssl", "OpenSSL", "QSslSocket", "QSslSocket", "SSLCipherInfoTable", "OPENSSL"))
             {
                 return Category.SSL;
             }
