@@ -1,21 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace changelog_transform
 {
     class GitLog
     {
-        public DirectoryInfo RepoPath { get; }
-        public string Source { get; }
-        public string Target { get; }
+        private static readonly string GitExecutable = "git";
+        private static readonly int HashLength = 8;
 
-        public GitLog(DirectoryInfo di, string fromRef, string toRef)
+        public DirectoryInfo RepoDir { get; }
+        public string SourceRef { get; }
+        public string TargetRef { get; }
+        public FileInfo Store { get; }
+
+        private string GitLogParameters { get => $"log {SourceRef}..{TargetRef} --first-parent --reverse --oneline"; }
+
+        public GitLog(DirectoryInfo di, string fromRef, string toRef, FileInfo store)
         {
-            RepoPath = di;
-            Source = fromRef;
-            Target = toRef;
+            RepoDir = di;
+            SourceRef = fromRef;
+            TargetRef = toRef;
+            Store = store;
+        }
+
+        public List<HistoryItem> ReadGitHistory()
+        {
+            if (Store.Exists)
+            {
+                using var fs = Store.OpenRead();
+                var ser = new BinaryFormatter();
+                return (List<HistoryItem>)ser.Deserialize(fs);
+            }
+            else
+            {
+                Console.WriteLine($"Reading Git history in {RepoDir} from {SourceRef} to {TargetRef}…");
+                var history = ReadFromGit();
+                if (history == null)
+                {
+                    return null;
+                }
+
+                using var fs = Store.Create();
+                var ser = new BinaryFormatter();
+                ser.Serialize(fs, history);
+                return history;
+            }
+        }
+
+        private List<HistoryItem> ReadFromGit()
+        {
+            Console.WriteLine($"With {GitExecutable} {GitLogParameters}");
+            var pi = new ProcessStartInfo(fileName: GitExecutable, GitLogParameters)
+            {
+                WorkingDirectory = RepoDir.FullName,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+            };
+            var p = Process.Start(pi);
+
+            var list = new List<HistoryItem>();
+            p.OutputDataReceived += (sender, e) => { if (e.Data != null) { list.Add(ParseLine(e.Data)); } };
+            p.BeginOutputReadLine();
+            p.WaitForExit();
+            if (p.ExitCode != 0)
+            {
+                var stdout = p.StandardOutput.ReadToEnd();
+                var stderr = p.StandardError.ReadToEnd();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ERROR: Failed to read git history");
+                Console.WriteLine();
+                Console.Write(stderr);
+                Console.WriteLine();
+                return null;
+            }
+
+            return list;
+        }
+
+        private static HistoryItem ParseLine(string line)
+        {
+            var hash = line.Substring(0, HashLength);
+            var title = line.Substring(HashLength + 1);
+            return new HistoryItem(hash, title);
         }
     }
 }
