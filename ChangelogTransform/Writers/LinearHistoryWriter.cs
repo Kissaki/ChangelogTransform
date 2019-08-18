@@ -14,7 +14,7 @@ namespace KCode.ChangelogTransform.Writers
             Target = new FileInfo(filename);
         }
 
-        public void Write(List<HistoryItem> history)
+        public void Write(List<Commit> history)
         {
             if (Target.Exists)
             {

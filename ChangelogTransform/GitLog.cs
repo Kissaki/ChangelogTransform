@@ -27,13 +27,13 @@ namespace KCode.ChangelogTransform
             Store = store;
         }
 
-        public List<HistoryItem>? ReadGitHistory()
+        public List<Commit>? ReadGitHistory()
         {
             if (Store.Exists)
             {
                 using var fs = Store.OpenRead();
                 var ser = new BinaryFormatter();
-                return (List<HistoryItem>)ser.Deserialize(fs);
+                return (List<Commit>)ser.Deserialize(fs);
             }
             else
             {
@@ -51,7 +51,7 @@ namespace KCode.ChangelogTransform
             }
         }
 
-        private List<HistoryItem>? ReadFromGit()
+        private List<Commit>? ReadFromGit()
         {
             Console.WriteLine($"With {GitExecutable} {GitLogParameters}");
             var pi = new ProcessStartInfo(fileName: GitExecutable, GitLogParameters)
@@ -62,7 +62,7 @@ namespace KCode.ChangelogTransform
             };
             var p = Process.Start(pi);
 
-            var list = new List<HistoryItem>();
+            var list = new List<Commit>();
             p.OutputDataReceived += (sender, e) => { if (e.Data != null) { list.Add(ParseLine(e.Data)); } };
             p.BeginOutputReadLine();
             p.WaitForExit();
@@ -81,11 +81,11 @@ namespace KCode.ChangelogTransform
             return list;
         }
 
-        private static HistoryItem ParseLine(string line)
+        private static Commit ParseLine(string line)
         {
             var hash = line.Substring(0, HashLength);
             var title = line.Substring(HashLength + 1);
-            return new HistoryItem(hash, title);
+            return new Commit(hash, title);
         }
     }
 }

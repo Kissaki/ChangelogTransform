@@ -216,7 +216,7 @@ namespace KCode.ChangelogTransform.Writers
         };
         private static Dictionary<string, Category> CommitMappingTransformed = CommitMapping.SelectMany(x => x.Value, (x, y) => new KeyValuePair<string, Category>(y, x.Key)).ToDictionary(x => x.Key, x => x.Value);
 
-        public Dictionary<Category, List<HistoryItem>> Categories { get; } = new Dictionary<Category, List<HistoryItem>>();
+        public Dictionary<Category, List<Commit>> Categories { get; } = new Dictionary<Category, List<Commit>>();
 
         public ItemCategorizer()
         {
@@ -227,11 +227,11 @@ namespace KCode.ChangelogTransform.Writers
                     throw new InvalidOperationException($"Unexpected: {nameof(Enum.GetValues)} returned a null value in the result");
                 }
 
-                Categories.Add(cateory.Value, new List<HistoryItem>());
+                Categories.Add(cateory.Value, new List<Commit>());
             }
         }
 
-        public void Add(HistoryItem item)
+        public void Add(Commit item)
         {
             if (IgnoreHash.Contains(item.Hash))
             {
@@ -242,7 +242,7 @@ namespace KCode.ChangelogTransform.Writers
             Categories[category].Add(item);
         }
 
-        private Category GetLineCategory(HistoryItem item)
+        private Category GetLineCategory(Commit item)
         {
             var hash = item.Hash;
             var title = item.Title;

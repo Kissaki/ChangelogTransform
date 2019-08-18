@@ -4,13 +4,13 @@ using System.Text.RegularExpressions;
 namespace KCode.ChangelogTransform.Models
 {
     [Serializable]
-    public class HistoryItem
+    public class Commit
     {
         public string Hash { get; }
         public string Title { get; }
         public int? PullRequestId { get; }
 
-        public HistoryItem(string hash, string title)
+        public Commit(string hash, string title)
         {
             Hash = hash;
             Title = title;

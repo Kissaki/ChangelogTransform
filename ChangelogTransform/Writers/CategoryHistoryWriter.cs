@@ -20,7 +20,7 @@ namespace KCode.ChangelogTransform.Writers
             TargetFile = new FileInfo(filename);
         }
 
-        internal void Write(List<HistoryItem> history)
+        internal void Write(List<Commit> history)
         {
             Categorize(history);
 
@@ -33,7 +33,7 @@ namespace KCode.ChangelogTransform.Writers
             WriteHistory(Categorizer.Categories);
         }
 
-        private void WriteHistory(Dictionary<Category, List<HistoryItem>> categories)
+        private void WriteHistory(Dictionary<Category, List<Commit>> categories)
         {
             using var fs = TargetFile.CreateText();
             fs.WriteLine("<h1>Categorized Changes</h1>");
@@ -47,7 +47,7 @@ namespace KCode.ChangelogTransform.Writers
             }
         }
 
-        private void WriteCategory(StreamWriter fs, Category cateory, List<HistoryItem> items, bool isOpen)
+        private void WriteCategory(StreamWriter fs, Category cateory, List<Commit> items, bool isOpen)
         {
             var openAttribute = isOpen ? "open" : "";
             fs.WriteLine(@$"<details {openAttribute}><summary><h2 style=""display:inline"">{CategoryName(cateory)}</h2> ({items.Count})</summary>");
@@ -55,7 +55,7 @@ namespace KCode.ChangelogTransform.Writers
             fs.WriteLine("</details>");
         }
 
-        private void Categorize(List<HistoryItem> history)
+        private void Categorize(List<Commit> history)
         {
             foreach (var item in history)
             {

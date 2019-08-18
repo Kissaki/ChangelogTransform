@@ -6,7 +6,7 @@ namespace KCode.ChangelogTransform.Writers
 {
     public class HistoryWriter
     {
-        protected string CreateTable(List<HistoryItem> items)
+        protected string CreateTable(List<Commit> items)
         {
             var sb = new StringBuilder();
             sb.AppendLine("<table>");
@@ -18,7 +18,7 @@ namespace KCode.ChangelogTransform.Writers
             return sb.ToString();
         }
 
-        protected string CreateRow(HistoryItem item)
+        protected string CreateRow(Commit item)
         {
             var hash = item.Hash;
             var title = item.Title;
