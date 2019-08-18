@@ -1,8 +1,8 @@
-﻿using changelog_transform.Writers;
+﻿using KCode.ChangelogTransform.Writers;
 using System;
 using System.IO;
 
-namespace changelog_transform
+namespace KCode.ChangelogTransform
 {
     class Program
     {

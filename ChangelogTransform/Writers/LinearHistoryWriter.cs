@@ -1,8 +1,9 @@
-﻿using System;
+﻿using KCode.ChangelogTransform.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace changelog_transform.Writers
+namespace KCode.ChangelogTransform.Writers
 {
     class LinearHistoryWriter : HistoryWriter
     {

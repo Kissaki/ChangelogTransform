@@ -1,4 +1,4 @@
-﻿namespace changelog_transform.Writers
+﻿namespace KCode.ChangelogTransform.Writers
 {
     enum Category
     {

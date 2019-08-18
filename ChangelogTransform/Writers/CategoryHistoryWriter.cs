@@ -1,9 +1,10 @@
-﻿using System;
+﻿using KCode.ChangelogTransform.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace changelog_transform.Writers
+namespace KCode.ChangelogTransform.Writers
 {
     class CategoryHistoryWriter : HistoryWriter
     {

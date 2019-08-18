@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace changelog_transform
+namespace KCode.ChangelogTransform.Models
 {
     [Serializable]
     public class HistoryItem

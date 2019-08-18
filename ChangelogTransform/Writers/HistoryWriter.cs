@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using KCode.ChangelogTransform.Models;
+using System.Collections.Generic;
 using System.Text;
 
-namespace changelog_transform.Writers
+namespace KCode.ChangelogTransform.Writers
 {
     public class HistoryWriter
     {

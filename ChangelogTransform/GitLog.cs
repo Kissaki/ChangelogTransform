@@ -1,10 +1,11 @@
-﻿using System;
+﻿using KCode.ChangelogTransform.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace changelog_transform
+namespace KCode.ChangelogTransform
 {
     class GitLog
     {
