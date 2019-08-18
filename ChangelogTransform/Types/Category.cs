@@ -1,6 +1,6 @@
-﻿namespace KCode.ChangelogTransform.Writers
+﻿namespace KCode.ChangelogTransform.Types
 {
-    enum Category
+    public enum Category
     {
         // Everything uncategorized
         Misc,
