@@ -23,6 +23,10 @@ namespace KCode.ChangelogTransform.Writers
             fs.WriteLine(@".commitlist { text-align:left; }");
             fs.WriteLine(@"</style>");
             fs.WriteLine(@"</head><body>");
+            fs.WriteLine("Legend: The Admin label is split into tier levels to me more specific.");
+            fs.WriteLine("T1 = Tier 1: Using the Mumble client in GUI administration features.");
+            fs.WriteLine("T2 = Tier 2: OS lifecycle management, server-local command line control, Process control, meta-servers (one process multiple servers)");
+            fs.WriteLine("T3 = Tier 3: Scripting via API, etc");
 
             foreach (var x in history.GroupBy(x => x.Category))
             {

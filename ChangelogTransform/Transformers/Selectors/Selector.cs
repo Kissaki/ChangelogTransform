@@ -7,6 +7,8 @@ namespace KCode.ChangelogTransform.Transformers.Selectors
 {
     public class Selector : ISelector
     {
+        private static Regex CreateStartsWithRegex(string startsWith) => new Regex(@$"(Merge PR #[0-9]+: )?{Regex.Escape(startsWith)}");
+
         public SelectorType Type { get; }
         public string Text { get; }
 
@@ -23,7 +25,7 @@ namespace KCode.ChangelogTransform.Transformers.Selectors
                 case SelectorType.CommitHash:
                     return commit.Hash == Text;
                 case SelectorType.StartsWith:
-                    return commit.Title.StartsWith(Text);
+                    return CreateStartsWithRegex(Text).IsMatch(commit.Title);
                 case SelectorType.Contains:
                     return commit.Title.Contains(Text);
                 case SelectorType.ContainsWord:
