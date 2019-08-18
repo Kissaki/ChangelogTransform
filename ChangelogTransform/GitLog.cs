@@ -27,7 +27,7 @@ namespace KCode.ChangelogTransform
             Store = store;
         }
 
-        public List<HistoryItem> ReadGitHistory()
+        public List<HistoryItem>? ReadGitHistory()
         {
             if (Store.Exists)
             {
@@ -51,7 +51,7 @@ namespace KCode.ChangelogTransform
             }
         }
 
-        private List<HistoryItem> ReadFromGit()
+        private List<HistoryItem>? ReadFromGit()
         {
             Console.WriteLine($"With {GitExecutable} {GitLogParameters}");
             var pi = new ProcessStartInfo(fileName: GitExecutable, GitLogParameters)

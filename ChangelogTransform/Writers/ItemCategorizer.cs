@@ -220,9 +220,14 @@ namespace KCode.ChangelogTransform.Writers
 
         public ItemCategorizer()
         {
-            foreach (Category cateory in Enum.GetValues(typeof(Category)))
+            foreach (Category? cateory in Enum.GetValues(typeof(Category)))
             {
-                Categories.Add(cateory, new List<HistoryItem>());
+                if (cateory == null)
+                {
+                    throw new InvalidOperationException($"Unexpected: {nameof(Enum.GetValues)} returned a null value in the result");
+                }
+
+                Categories.Add(cateory.Value, new List<HistoryItem>());
             }
         }
 

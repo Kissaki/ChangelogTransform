@@ -11,7 +11,7 @@ namespace KCode.ChangelogTransform.Writers
         private FileInfo TargetFile { get; }
 
         private Category[] CategoryValues = Enum.GetValues(typeof(Category)).Cast<Category>().ToArray();
-        private string CategoryName(Category category) => Enum.GetName(typeof(Category), category);
+        private string CategoryName(Category category) => Enum.GetName(typeof(Category), category) ?? throw new InvalidOperationException();
 
         private readonly ItemCategorizer Categorizer = new ItemCategorizer();
 
