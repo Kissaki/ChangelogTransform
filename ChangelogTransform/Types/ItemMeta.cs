@@ -6,9 +6,9 @@ namespace KCode.ChangelogTransform.Types
     {
         public string Title { get; }
         public Category Category { get; }
-        public Selector[] Selectors { get; }
+        public ISelector[] Selectors { get; }
 
-        public ItemMeta(string title, Category category, params Selector[] selectors)
+        public ItemMeta(string title, Category category, params ISelector[] selectors)
         {
             Title = title;
             Category = category;

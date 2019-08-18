@@ -7,19 +7,14 @@ namespace KCode.ChangelogTransform.Models
     {
         public string Title { get; }
         public Category Category { get; }
-        public List<Commit> Commits { get; } = new List<Commit>();
+        public Commit[] Commits { get; }
 
         public HistoryItem(string title, Category category, params Commit[] commits)
         {
             Title = title;
             Category = category;
 
-            foreach (var commit in commits)
-            {
-                AddCommit(commit);
-            }
+            Commits = commits;
         }
-
-        private void AddCommit(Commit commit) => Commits.Add(commit);
     }
 }

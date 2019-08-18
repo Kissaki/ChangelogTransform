@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace KCode.ChangelogTransform.Models
 {
@@ -8,12 +9,14 @@ namespace KCode.ChangelogTransform.Models
     {
         public string Hash { get; }
         public string Title { get; }
+        public string TitleUnsafe { get; }
         public int? PullRequestId { get; }
 
         public Commit(string hash, string title)
         {
             Hash = hash;
-            Title = title;
+            Title = HttpUtility.HtmlEncode(title);
+            TitleUnsafe = title;
 
             PullRequestId = ParsePullRequestId(title);
         }

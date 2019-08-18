@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace KCode.ChangelogTransform.Transformers.Selectors
 {
-    public class Selector
+    public class Selector : ISelector
     {
         public SelectorType Type { get; }
         public string Text { get; }

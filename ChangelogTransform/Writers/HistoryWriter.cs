@@ -35,10 +35,9 @@ namespace KCode.ChangelogTransform.Writers
 
         protected string CreateRow(Commit item)
         {
-            var hash = item.Hash;
             var title = item.Title;
 
-            var commit = CreateCommitHashLink(hash);
+            var commitLink = CreateCommitHashLink(item);
 
             var pr = "";
             if (item.PullRequestId.HasValue)
@@ -46,25 +45,14 @@ namespace KCode.ChangelogTransform.Writers
                 pr = CreateCommitPrLink(item.PullRequestId.Value);
             }
 
-            return $"<tr><td>{commit}</td><td>{pr}</td><td>{title}</td></tr>";
-        }
-
-        protected string CreateCommitHashLink(string hash)
-        {
-            var commitUrl = $"https://github.com/mumble-voip/mumble/commit/{hash}";
-            return @$"<a href=""{commitUrl}"">{hash}</a>";
-        }
-
-        protected string CreateCommitPrLink(int id)
-        {
-            return @$"<a href=""https://github.com/mumble-voip/mumble/pull/{id}"">#{id}</a>";
+            return $"<tr><td>{commitLink}</td><td>{pr}</td><td>{title}</td></tr>";
         }
 
         protected string CreateTable(IEnumerable<HistoryItem> items)
         {
             var sb = new StringBuilder();
             sb.AppendLine("<table>");
-            sb.AppendLine("<tr><th>Title</th><th>Commits</th><th>PRs</th></tr>");
+            sb.AppendLine(@"<tr><th class=""pullrequests"">PRs</th><th class=""commithashes"">Commits</th><th class=""itemtitle"">Title</th></tr>");
             foreach (var line in items)
             {
                 sb.AppendLine(CreateRow(line));
@@ -76,10 +64,32 @@ namespace KCode.ChangelogTransform.Writers
         protected string CreateRow(HistoryItem item)
         {
             var title = item.Title;
-            var commits = string.Join(", ", item.Commits.Select(x => CreateCommitHashLink(x.Hash)));
             var prs = string.Join(", ", item.Commits.Where(x => x.PullRequestId.HasValue).Select(x => CreateCommitPrLink(x.PullRequestId ?? throw new InvalidOperationException())));
 
-            return $"<tr><td>{title}</td><td>{commits}</td><td>{prs}</td></tr>";
+            return @$"<tr><td class=""pullrequests"">{prs}</td><td class=""commithashes"">{CreateCommitDetails(item.Commits)}</td><td class=""itemtitle"">{title}</td></tr>";
+        }
+
+        protected string CreateCommitPrLink(int id)
+        {
+            return @$"<a href=""https://github.com/mumble-voip/mumble/pull/{id}"">#{id}</a>";
+        }
+
+        protected string CreateCommitDetails(params Commit[] commits)
+        {
+            if (!commits.Any())
+            {
+                return "";
+            }
+
+            var hashlist = string.Join(", ", commits.Select(x => CreateCommitHashLink(x)));
+            var titlelist = string.Join("", commits.Select(commit => $"<li>{commit.Title}</li>"));
+            return $@"<details><summary>{hashlist}</summary><ul class=""commitlist"">{titlelist}</ul>";
+        }
+
+        protected string CreateCommitHashLink(Commit commit)
+        {
+            var commitUrl = $"https://github.com/mumble-voip/mumble/commit/{commit.Hash}";
+            return @$"<a href=""{commitUrl}"" title=""{commit.Title}"">{commit.Hash}</a>";
         }
     }
 }
