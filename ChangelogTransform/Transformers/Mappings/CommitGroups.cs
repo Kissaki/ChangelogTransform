@@ -122,6 +122,92 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 "eaad2da6",
                 "40868d47",
                 "173b68a2",
+                "9db30159", "bd49fa59", "17ddc1a3",
+                "3910dc96",
+                "143bf861",
+                "b4589b45",
+                "8b4ed1e1",
+                "3643c240",
+                "a24b8c30",
+                "a59e166c",
+                "4e9f4127",
+                "0393ed34",
+                "0502fa67",
+                "25422e7f",
+                "b7271c20",
+                "6a3f2ef9",
+                "5b6bdac5",
+                "656be8fe",
+                "11b2823a",
+                "2f34ff75",
+                "d3e1c68b",
+                "07559e23",
+                "ea372dea",
+                "3d050886",
+                "f2417826",
+                "ad10136d",
+                "d6572388",
+                "ca2fd07b",
+                "e9f3c081",
+                "52fd689c",
+                "46137d96",
+                "c0865e14",
+                "0df5c64d",
+                "2a106e19",
+                "5998cc0a",
+                "59275f54",
+                "f5429899",
+                "039096ac",
+                "1be562fe",
+                "eca32a03",
+                "077cbfd9",
+                "11f92440",
+                "1773dc71",
+                "289d0d4c",
+                "e0b384b0",
+                "5d036bc9",
+                "accc8fda",
+                "e95dd303",
+                "cae5d6d0",
+                "a58d708f",
+                "b046d6f1",
+                "50764166",
+                "aef577f8",
+                "92b82cf2",
+                "5e7cbcac",
+                "a27fbb7b",
+                "efd63614",
+                "b54166be",
+                "bd6a4669",
+                "eca5d035",
+                "0cffca12",
+                "c0c5ba74",
+                "449c7974",
+                "a6cae4f9",
+                "30a91763",
+                "7c77b8c0",
+                "d3bacc5a",
+                "d472e06d",
+                "e913a441",
+                "3fcd786b",
+                "9a2fa244",
+                "911f957d",
+                "53574722",
+                "e79ca504",
+                "9d4691cb",
+                "d8179372",
+                "6770eac8",
+                "5564901b",
+                "6f434d3e",
+                "5db1fa41",
+                "04c05785",
+                "53c5a917",
+                "894ade2a",
+                "8bf71ba1",
+                "6bfd0392",
+                "caa18737",
+                "e348e47f",
+                "e5ff9c52",
         };
 
         public static List<ItemMeta> Groups { get; } = new List<ItemMeta>();
@@ -133,23 +219,44 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[Admin T3]", "dc3b78c9").Add();
             Feature("TODO from [code]: mumble-app/mumble-exe").Add();
             Feature("[Settings] Support restarting Mumble client to apply setting changes where this is necessary (theme)").Commits("c431d376", "d08336e5", "3f0e2d2c", "459022de", "e061b72a").Add();
-            Feature("[User] Per user volume adjustment").Commits("15f47f4f", "bd9bb666", "42c0684c").Add();
+            Feature("[User] Per user volume adjustment").Commits("15f47f4f", "bd9bb666", "42c0684c", "a7798709", "1603d085").Add();
             Feature("Per channel user limit").Commits("84b1bcec", "c0879e57", "0b0c074d", "fea39f20").Add();
-            Feature("[User] save images from chat log", "b0c9521e").Add();
+            Feature("[User] save images from chat log").Commits("b0c9521e", "8722bdd0", "56fc9de7").Add();
             Feature("[Settings] Drop expert mode").Commits("4090c212", "b16983f3").Add();
+            Feature("ViewCert: show certificate's SHA-256 fingerprint").Commits("a297a24b", "4f4e5ac2").Add();
+            Feature("[Dev][MinGW]").AnyWord("MinGW").Add();
+            Improvement("[Admin T2] Human readable-friendly passwords").Commits("9ae2a7f5").Add();
             Feature("Various Features")
-                .Commits("6c096c31")
+                .Commits("6c096c31"
+                    , "c05d4de5"
+                    , "9be606ef"
+                    , "f3a1a6c7"
+                    , "012cde52"
+                    , "6ac0553a"
+                    , "ddd47649"
+                    , "bf90fadd"
+                    , "cad1bac3"
+                    , "65909b89"
+                    , "4481729e"
+                    , "d66eeebe"
+                    , "3eae0dc6"
+                )
                 .Add();
 
             Improvement("[Admin T1] Userlist improvements").Commits("c40b0b00", "02ddd914", "d19e266f", "46cb8a37", "07a142d1").Add();
             Improvement("[Admin T1] Allow admins to clear user avatars/textures.").Commits("52d19ac3").Add();
             Improvement("[Settings] ").Commits("7c2d1a3f").Add();
             Improvement("[Accessibility]").Commits("47a81f7b").Add();
+            Improvement("XInput").StartsWithAny("XInput").AnyWord("XInput").Add();
+            Improvement("[GUI] Various GUI improvements").Commits("c2be406a", "10abf369", "be4ae5b2", "4a99cde5", "46462cd7", "80602a3e", "455ab192", "a4e859e7").Add();
+            Improvement("[GUI] CertWizard: Password requirement notice on import").Commits("8f94c763").Add();
             Improvement("Various Documentation Improvements")
                 .Commits("83da4f17"
                     , "77b59e5d"
                     , "d793aa11"
                     , "7d4fe6cc"
+                    , "a69916bc"
+                    , "948331ee"
                 )
                 .Add();
             Improvement("Various Improvements")
@@ -189,7 +296,6 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "7fbe61e5"
                     , "6db171ef"
                     , "b4d48ef4"
-            #endregion
                     , "ce413bd9"
                     , "e8027bd6"
                     , "8e195e17"
@@ -206,9 +312,35 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "33f8448d"
                     , "25ceebb3"
                     , "69cdaee4"
+                    , "a2e6cb8c"
+            #endregion
+                    , "cd8fbbdc"
+                    , "a50a120b"
+                    , "a1a969e7"
+                    , "c522cff0"
+                    , "e6cde15c"
+                    , "2d6e099d"
+                    , "4add9cec"
+                    , "b2e37e68"
+                    , "0d76ff92"
+                    , "153c0aa9"
+                    , "b5aef4ca"
+                    , "fa818bdf"
+                    , "cb952e06"
+                    , "dbab0f70"
+                    , "871240e7"
+                    , "4e430f74"
+                    , "65c25009"
+                    , "6aba9842"
+                    , "5c9a46e9"
+                    , "6cd17bdc"
+                    , "31254397"
+                    , "2c24ee0f"
+                    , "a1899695"
                 )
                 .Add();
 
+            Fix("[GUI] OS-X styling issues").Commits("66d41efd").Add();
             Fix("Various Bugfixes")
                 .AnyWord("Fix", "Fixes", "Fixed", "fix")
                 .Commits("73a1a98d"
@@ -232,6 +364,14 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "23fa9b39"
                     , "779496c5"
                     , "d0ced447"
+                    , "fd9c7941"
+                    , "c45298e4"
+                    , "06d3785a"
+                    , "c3e29055"
+                    , "1a1bd8c1"
+                    , "27189b63"
+                    , "eb63d0b1"
+                    , "4566f092"
                 )
                 .Add();
 
@@ -242,22 +382,30 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .Add();
             Feature("[Admin][GRPC] Add support for GRPC (Remote Procedure Call API for scripting the server)(CURRENTLY DISABLED)")
                 .AnyWord("grpc")
+                .ContainsAny("gRPC", "GRPC")
+                .Commits("765f7807")
+                .Add();
+            Improvement("[Admin][SocketRPC]")
+                .AnyWord("SocketRPC")
+                .Add();
+            Improvement("[Dev][Protobuf]")
+                .Commits("4fe07a50")
                 .Add();
 
             Improvement("[Translation] Translation updates")
                 .AnyWord("translation", "Translation", "translations", ".ts", "MumbleTransifexBot")
-                .Commits("52272e28", "de2e0868", "f1eb6425")
+                .Commits("52272e28", "de2e0868", "f1eb6425", "e6ac067c")
                 .Add();
             Improvement("[Overlay]")
                 .StartsWithAny("Overlay", "overlay")
                 .AnyWord("overlay", "OverlayClient", "Overlay", "drawOverlay", "overlays", "OverlayPrivateWin", "overlay_exe", "overlay_gl", "OverlayConfig", "mumble_ol", "HardHook", "winhook", "Hooks")
-                .Commits("0e358bff")
+                .Commits("0e358bff", "c1e9102c")
                 .Add();
             Improvement("[PositionalAudio]")
                 .StartsWithAny("plugins/", "Plugins")
-                .ContainsAny("positional audio")
+                .ContainsAny("positional audio", "Positional audio", "Positional Audio")
                 .AnyWord("PA", "Plugin", "Plugins", "plugins", "plugin")
-                .Commits("398b7733", "61ad05c9", "9f6c08b2")
+                .Commits("398b7733", "61ad05c9", "9f6c08b2", "80d03543", "de1d9834", "a235d1a6")
                 .Add();
             Improvement("[installer]")
                 .AnyWord("installer")
@@ -266,9 +414,11 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Improvement("[3rdparty]")
                 .ContainsAny("3rdparty")
                 .Add();
+            Improvement("[Admin T1] Show ban message when someone bans").Commits("c522cff0").Add();
 
             Improvement("[Ice]")
-                .AnyWord("Ice", "ice")
+                .AnyWord("Ice", "ice", "MurmurIce")
+                .Commits("b595d650")
                 .Add();
 
             Item(Category.Code, "[Code] Various code changes and improvements")
@@ -277,17 +427,19 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .ContainsAny("QT_", "Q_")
                 .AnyWord("submodule", "build", "compiler.pri", "header guard", "refac", "Refac", "refacs", "Refactor", "Refactoring", "guard define", ".pri", "qmake", "LICENSE", "license", "CHANGES", @"C\+\+11")
                 .Add();
-
+            Item(Category.Code, "[Code] Various changes related to copyright and authors")
+                .Commits("7a333184", "6e165025", "4b3746ab", "999b59b8", "3434ff89", "37c4749e", "2c2744ea", "80b8e3cf", "dd874ccd", "486381c9", "c59ca21c", "45ad52f1", "cb5e34f9", "ac9fa648", "3ffd9ad3")
+                .Add();
             Feature("[Dev][Docs] Replace docs folder with Protocol Documentation")
                 .Commits("6eecd624", "eda74f21")
                 .AnyWord("protocol documentation")
                 .Add();
 
             Item(Category.Code, "[Build Infrastructure]")
-                .AnyWord("scripts", ".pro", "buildenv", "travis-ci", "appveyor")
+                .AnyWord("scripts", ".pro", "buildenv", "travis-ci", "Travis-CI", "travis", "appveyor")
                 .Add();
             Item(Category.Code, "[Tests]")
-                .StartsWithAny("src/tests", "tests/")
+                .StartsWithAny("src/tests", "tests/", "Test")
                 .AnyWord("OverlayTest", "tests")
                 .Add();
             Improvement("[Opus]")
@@ -322,7 +474,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .Add();
             Improvement("[Text to Speech]")
                 .StartsWithAny("TextToSpeech")
-                .AnyWord("TextToSpeech")
+                .AnyWord("TextToSpeech", "text-to-speech")
                 .Add();
             Item(Category.SSL, "[SSL]")
                 .ContainsAny("OPENSSL")
