@@ -1,9 +1,7 @@
-﻿using KCode.ChangelogTransform.Models;
-using KCode.ChangelogTransform.Transformers.Selectors;
+﻿using KCode.ChangelogTransform.Transformers.Selectors;
 using KCode.ChangelogTransform.Types;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace KCode.ChangelogTransform.Transformers.Mappings
 {
@@ -122,7 +120,6 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 "eaad2da6",
                 "40868d47",
                 "173b68a2",
-                "9db30159", "bd49fa59", "17ddc1a3",
                 "3910dc96",
                 "143bf861",
                 "b4589b45",
@@ -153,7 +150,6 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 "46137d96",
                 "c0865e14",
                 "0df5c64d",
-                "2a106e19",
                 "5998cc0a",
                 "59275f54",
                 "f5429899",
@@ -208,6 +204,18 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 "caa18737",
                 "e348e47f",
                 "e5ff9c52",
+                "fcb367f8",
+                "39c526a7",
+                "0dddc437",
+                "48277cb2",
+                "b230c285",
+                "af4b7526",
+                "2ad8c651",
+                "7e15d9e1",
+                "c91553c4",
+                "c014e04f",
+                "f90ef837",
+                "02a14f4e",
         };
 
         public static List<ItemMeta> Groups { get; } = new List<ItemMeta>();
@@ -225,7 +233,13 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[Settings] Drop expert mode").Commits("4090c212", "b16983f3").Add();
             Feature("ViewCert: show certificate's SHA-256 fingerprint").Commits("a297a24b", "4f4e5ac2").Add();
             Feature("[Dev][MinGW]").AnyWord("MinGW").Add();
-            Improvement("[Admin T2] Human readable-friendly passwords").Commits("9ae2a7f5").Add();
+            Feature("[Settings] Add various configurable message types").Commits("91f5e1cb", "6ed06bdd").Add();
+            Feature("[Admin T2] Human readable-friendly passwords").Commits("9ae2a7f5").Add();
+            Feature("[Admin T1] Configurable max channels per server").Commits("23eb3d17").Add();
+            Feature("[Audio] Add JACK Audio support").Commits("1bf549d6", "08d9b9c7", "09c71b4d", "d3cf441c").Add();
+            Feature("[Audio] RNNoise").Commits("e54f60f4", "17816971", "e3ad9552", "f6a6b661").Add();
+            Feature("[Build] Add Docker image build file").Commits("cbbc3425").Add();
+            Feature("[Build] AppImage").Commits("83bca04f").Add();
             Feature("Various Features")
                 .Commits("6c096c31"
                     , "c05d4de5"
@@ -240,6 +254,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "4481729e"
                     , "d66eeebe"
                     , "3eae0dc6"
+                    , "755c2905"
                 )
                 .Add();
 
@@ -257,6 +272,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "7d4fe6cc"
                     , "a69916bc"
                     , "948331ee"
+                    , "df8b774f"
                 )
                 .Add();
             Improvement("Various Improvements")
@@ -313,7 +329,6 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "25ceebb3"
                     , "69cdaee4"
                     , "a2e6cb8c"
-            #endregion
                     , "cd8fbbdc"
                     , "a50a120b"
                     , "a1a969e7"
@@ -337,6 +352,16 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "31254397"
                     , "2c24ee0f"
                     , "a1899695"
+            #endregion
+                    , "651e4d0d"
+                    , "ce8fd36d"
+                    , "26c732fb"
+                    , "1098afcc"
+                    , "07c8e00e"
+                    , "9b19e609"
+                    , "b9815665"
+                    , "4c82dd5e"
+                    , "66f5ae91"
                 )
                 .Add();
 
@@ -372,8 +397,14 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "27189b63"
                     , "eb63d0b1"
                     , "4566f092"
+                    , "b25db3e1"
+                    , "86197ff2"
+                    , "d7ef5178"
+                    , "16c1145b"
+                    , "b126c4e2"
                 )
                 .Add();
+            Fix("Configurable message flood protection").Commits("44b9004d", "f7221c14", "b44b1f21").Add();
 
             Feature("[Theme]")
                 .ContainsAny("theme", "Theme")
@@ -383,7 +414,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[Admin][GRPC] Add support for GRPC (Remote Procedure Call API for scripting the server)(CURRENTLY DISABLED)")
                 .AnyWord("grpc")
                 .ContainsAny("gRPC", "GRPC")
-                .Commits("765f7807")
+                .Commits("765f7807", "41502bb8")
                 .Add();
             Improvement("[Admin][SocketRPC]")
                 .AnyWord("SocketRPC")
@@ -394,7 +425,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
 
             Improvement("[Translation] Translation updates")
                 .AnyWord("translation", "Translation", "translations", ".ts", "MumbleTransifexBot")
-                .Commits("52272e28", "de2e0868", "f1eb6425", "e6ac067c")
+                .Commits("52272e28", "de2e0868", "f1eb6425", "e6ac067c", "bc012541")
                 .Add();
             Improvement("[Overlay]")
                 .StartsWithAny("Overlay", "overlay")
@@ -428,7 +459,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .AnyWord("submodule", "build", "compiler.pri", "header guard", "refac", "Refac", "refacs", "Refactor", "Refactoring", "guard define", ".pri", "qmake", "LICENSE", "license", "CHANGES", @"C\+\+11")
                 .Add();
             Item(Category.Code, "[Code] Various changes related to copyright and authors")
-                .Commits("7a333184", "6e165025", "4b3746ab", "999b59b8", "3434ff89", "37c4749e", "2c2744ea", "80b8e3cf", "dd874ccd", "486381c9", "c59ca21c", "45ad52f1", "cb5e34f9", "ac9fa648", "3ffd9ad3")
+                .Commits("7a333184", "6e165025", "4b3746ab", "999b59b8", "3434ff89", "37c4749e", "2c2744ea", "80b8e3cf", "dd874ccd", "486381c9", "c59ca21c", "45ad52f1", "cb5e34f9", "ac9fa648", "3ffd9ad3", "4976c1ad", "73fe4578")
                 .Add();
             Feature("[Dev][Docs] Replace docs folder with Protocol Documentation")
                 .Commits("6eecd624", "eda74f21")
@@ -437,11 +468,13 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
 
             Item(Category.Code, "[Build Infrastructure]")
                 .AnyWord("scripts", ".pro", "buildenv", "travis-ci", "Travis-CI", "travis", "appveyor")
+                .Commits("17cdab70", "8c149069")
                 .Add();
             Item(Category.Code, "[Tests]")
                 .StartsWithAny("src/tests", "tests/", "Test")
                 .AnyWord("OverlayTest", "tests")
                 .Add();
+            Item(Category.Code, "Use our own domain for services").Commits("9db30159", "bd49fa59", "17ddc1a3", "4ed7af93").Add();
             Improvement("[Opus]")
                 .AnyWord("Opus", "opus")
                 .Add();
@@ -457,6 +490,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Improvement("[Shortcut]")
                 .StartsWithAny("GlobalShortcut", "GlobalShortuct")
                 .AnyWord("GlobalShortcut", "Shortcut", "shortcut")
+                .Commits("8a1e0e85")
                 .Add();
             Improvement("[Banlist]")
                 .AnyWord("BanList", "Banlist")
@@ -467,6 +501,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Item(Category.G15Lcd, "[G15 LCD]")
                 .StartsWithAny("G15")
                 .AnyWord("LCD", "G15", "g15helper")
+                .Commits("1974ac0f")
                 .Add();
 
             Improvement("[UI] Filtering")
