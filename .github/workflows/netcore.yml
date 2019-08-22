@@ -8,7 +8,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     runs-on: ${{ matrix.os }}
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
@@ -17,3 +17,7 @@ jobs:
         dotnet-version: 3.0.100-preview8-013656
     - name: Build with dotnet
       run: dotnet build --configuration Release
+    - uses: actions/upload-artifact@v1
+      with:
+        name: ${{ format('ChangelogTransform_{0}_{1}', github.sha, matrix.os) }}
+        path: ChangelogTransform/bin/Release/netcoreapp3.0/
