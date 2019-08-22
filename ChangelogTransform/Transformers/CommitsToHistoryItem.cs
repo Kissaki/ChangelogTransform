@@ -9,6 +9,8 @@ namespace KCode.ChangelogTransform.Transformers
     {
         public static List<HistoryItem> Transform(List<Commit> commits)
         {
+            commits.RemoveAll(c => IgnoredCommits.Commits.Contains(c.Hash));
+
             var items = new List<HistoryItem>();
             var matchedCommits = new List<Commit>();
             foreach (var itemMeta in CommitGroups.Groups)
@@ -18,10 +20,6 @@ namespace KCode.ChangelogTransform.Transformers
                 {
                     foreach (var c in commits)
                     {
-                        if (IgnoredCommits.Commits.Contains(c.Hash))
-                        {
-                            continue;
-                        }
                         if (s.IsMatch(c))
                         {
                             itemCommits.Add(c);
@@ -36,11 +34,6 @@ namespace KCode.ChangelogTransform.Transformers
                 
             foreach (var commit in commits)
             {
-                if (IgnoredCommits.Commits.Contains(commit.Hash))
-                {
-                    continue;
-                }
-
                 Category category;
                 if (!CommitCategories.CommitMappingTransformed.TryGetValue(commit.Hash, out category))
                 {
