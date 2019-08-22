@@ -22,6 +22,7 @@ namespace KCode.ChangelogTransform.Writers
             fs.WriteLine(@"th, td { text-align: left; }");
             fs.WriteLine(@".itemtitle { width: 120px; }");
             fs.WriteLine(@".itemtitle b { white-space: nowrap; }");
+            fs.WriteLine(@"tbody { vertical-align: top; }");
             fs.WriteLine(@"</style>");
             fs.WriteLine(@"</head><body>");
             fs.WriteLine("Legend: The Admin label is split into tier levels to me more specific.");
