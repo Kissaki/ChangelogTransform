@@ -81,9 +81,18 @@ namespace KCode.ChangelogTransform.Writers
                 return "";
             }
 
-            var hashlist = string.Join(", ", commits.Select(x => CreateCommitHashLink(x)));
-            var titlelist = string.Join("", commits.Select(commit => $"<li>{commit.Title}</li>"));
-            return $@"<details><summary>{hashlist}</summary><ul class=""commitlist"">{titlelist}</ul>";
+            var hashlist = new List<string>();
+            var detaillist = new List<string>();
+            foreach (var c in commits)
+            {
+                var hash = CreateCommitHashLink(c);
+                var detail = $"<li>{hash}: {c.Title}</li>";
+                hashlist.Add(hash);
+                detaillist.Add(detail);
+            }
+            var summary = string.Join(", ", hashlist);
+            var details = string.Join("", detaillist);
+            return $@"<details><summary>{summary}</summary><ul class=""commitlist"">{details}</ul>";
         }
 
         protected string CreateCommitHashLink(Commit commit)
