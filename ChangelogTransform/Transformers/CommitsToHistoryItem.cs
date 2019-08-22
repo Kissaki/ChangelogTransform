@@ -34,12 +34,7 @@ namespace KCode.ChangelogTransform.Transformers
                 
             foreach (var commit in commits)
             {
-                Category category;
-                if (!CommitCategories.CommitMappingTransformed.TryGetValue(commit.Hash, out category))
-                {
-                    category = Category.Misc;
-                }
-                items.Add(new HistoryItem(commit.Title, category, commit));
+                items.Add(new HistoryItem(commit.Title, Category.Misc, commit));
             }
 
             return items;

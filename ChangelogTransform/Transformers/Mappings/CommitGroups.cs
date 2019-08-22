@@ -222,10 +222,13 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
 
         static CommitGroups()
         {
-            Feature("[Linux] Add support for logging to syslog").Matches(new Selector(SelectorType.ContainsWord, "syslog")).Add();
-            Feature("[Admin T2] Support disabling SuperUser login (the initial and fallback administration account)").Commits("aaf36667", "708ace45").Add();
+            Feature("[Linux] Add support for logging to syslog").AnyWord("syslog").Commits("08d7cb3a").Add();
+            Feature("[Admin T2] Support disabling SuperUser login (the initial and fallback administration account)").Commits("f990b90d", "aaf36667", "708ace45").Add();
             Feature("[Admin T3]", "dc3b78c9").Add();
             Feature("TODO from [code]: mumble-app/mumble-exe").Add();
+            Feature("[Overlay] DirectX 11 Overlay").Commits("405d6e43").Add();
+            Feature("attenuate others").Commits("29a65c66").Add();
+            Feature("Use PBKDF2 for user password hashing").Commits("88cf21d6").Add();
             Feature("[Settings] Support restarting Mumble client to apply setting changes where this is necessary (theme)").Commits("c431d376", "d08336e5", "3f0e2d2c", "459022de", "e061b72a").Add();
             Feature("[User] Per user volume adjustment").Commits("15f47f4f", "bd9bb666", "42c0684c", "a7798709", "1603d085").Add();
             Feature("Per channel user limit").Commits("84b1bcec", "c0879e57", "0b0c074d", "fea39f20").Add();
@@ -233,13 +236,14 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[Settings] Drop expert mode").Commits("4090c212", "b16983f3").Add();
             Feature("ViewCert: show certificate's SHA-256 fingerprint").Commits("a297a24b", "4f4e5ac2").Add();
             Feature("[Dev][MinGW]").AnyWord("MinGW").Add();
-            Feature("[Settings] Add various configurable message types").Commits("91f5e1cb", "6ed06bdd").Add();
+            Feature("[Settings] Add various configurable message types").Commits("f0fc66b6", "91f5e1cb", "6ed06bdd").Add();
             Feature("[Admin T2] Human readable-friendly passwords").Commits("9ae2a7f5").Add();
             Feature("[Admin T1] Configurable max channels per server").Commits("23eb3d17").Add();
             Feature("[Audio] Add JACK Audio support").Commits("1bf549d6", "08d9b9c7", "09c71b4d", "d3cf441c").Add();
             Feature("[Audio] RNNoise").Commits("e54f60f4", "17816971", "e3ad9552", "f6a6b661").Add();
             Feature("[Build] Add Docker image build file").Commits("cbbc3425").Add();
             Feature("[Build] AppImage").Commits("83bca04f").Add();
+            Feature("[Admin T2] CLI RPC").Commits("bc5852d3").Add();
             Feature("Various Features")
                 .Commits("6c096c31"
                     , "c05d4de5"
@@ -255,6 +259,13 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "d66eeebe"
                     , "3eae0dc6"
                     , "755c2905"
+                    , "fd5a9b12"
+                    , "6a345f54"
+                    , "a5651973"
+                    , "44dc94e9"
+                    , "80f1623b"
+                    , "57396fac"
+                    , "5b104e09"
                 )
                 .Add();
 
@@ -362,6 +373,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "b9815665"
                     , "4c82dd5e"
                     , "66f5ae91"
+                    , "de27cd7b"
                 )
                 .Add();
 
@@ -468,7 +480,19 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
 
             Item(Category.Code, "[Build Infrastructure]")
                 .AnyWord("scripts", ".pro", "buildenv", "travis-ci", "Travis-CI", "travis", "appveyor")
-                .Commits("17cdab70", "8c149069")
+                .Commits("17cdab70", "8c149069",
+                "7d649aa5",
+                "d74b5b04",
+                "82fa0e60",
+                "c03d8fcc",
+                "b2529590",
+                "53daac83",
+                "9946dc75",
+                "e562e92e",
+                "a429c763",
+                "630a17ba",
+                "0fdb7c17"
+                )
                 .Add();
             Item(Category.Code, "[Tests]")
                 .StartsWithAny("src/tests", "tests/", "Test")

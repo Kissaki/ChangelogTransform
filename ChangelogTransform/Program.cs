@@ -34,7 +34,6 @@ namespace KCode.ChangelogTransform
             }
 
             //WriteLinearHistory(history);
-            //WriteCategoryHistory(history);
             WriteGroupHistory(history);
 
 
@@ -46,12 +45,6 @@ namespace KCode.ChangelogTransform
         {
             var linearWriter = new LinearHistoryWriter("history-linear.html");
             linearWriter.Write(history);
-        }
-
-        private static void WriteCategoryHistory(List<Commit> history)
-        {
-            var groupWriter = new CategoryHistoryWriter("history-categorized.html");
-            groupWriter.Write(history);
         }
 
         private static void WriteGroupHistory(List<Commit> history)
