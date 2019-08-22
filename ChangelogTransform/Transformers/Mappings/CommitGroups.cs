@@ -224,7 +224,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
         {
             Feature("[Linux] Add support for logging to syslog").AnyWord("syslog").Commits("08d7cb3a").Add();
             Feature("[Admin T2] Support disabling SuperUser login (the initial and fallback administration account)").Commits("f990b90d", "aaf36667", "708ace45").Add();
-            Feature("[Admin T3]", "dc3b78c9").Add();
+            Feature("[Admin T3]").Commits("dc3b78c9").Add();
             Feature("TODO from [code]: mumble-app/mumble-exe").Add();
             Feature("[Overlay] DirectX 11 Overlay").Commits("405d6e43").Add();
             Feature("attenuate others").Commits("29a65c66").Add();
@@ -243,7 +243,9 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[Audio] RNNoise").Commits("e54f60f4", "17816971", "e3ad9552", "f6a6b661").Add();
             Feature("[Build] Add Docker image build file").Commits("cbbc3425").Add();
             Feature("[Build] AppImage").Commits("83bca04f").Add();
-            Feature("[Admin T2] CLI RPC").Commits("bc5852d3").Add();
+            Feature("[Admin T3] CLI RPC").Commits("bc5852d3").Add();
+            Feature("[Admin T2] Add 'sslCiphers' option to allow server admins full control of Murmur's advertised TLS cipher suites.").Commits("a3f93f78", "8ae710b5").Add();
+            Feature("[SSL] ").Commits("13bc12d3", "5b82a7a4").Add();
             Feature("Various Features")
                 .Commits("6c096c31"
                     , "c05d4de5"
@@ -378,6 +380,8 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .Add();
 
             Fix("[GUI] OS-X styling issues").Commits("66d41efd").Add();
+            Fix("[G15] ").Commits("b2f2277d").Add();
+            Fix("[G15] Disable G15 - We see a lot of crashes but have no testers and no way to debug/fix the issue for now").Commits("1974ac0f").Add();
             Fix("Various Bugfixes")
                 .AnyWord("Fix", "Fixes", "Fixed", "fix")
                 .Commits("73a1a98d"
@@ -464,13 +468,13 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .Commits("b595d650")
                 .Add();
 
-            Item(Category.Code, "[Code] Various code changes and improvements")
+            Code("[Code] Various code changes and improvements")
                 .Commits(CodeChanges)
                 .StartsWithAny("Bump version")
                 .ContainsAny("QT_", "Q_")
                 .AnyWord("submodule", "build", "compiler.pri", "header guard", "refac", "Refac", "refacs", "Refactor", "Refactoring", "guard define", ".pri", "qmake", "LICENSE", "license", "CHANGES", @"C\+\+11")
                 .Add();
-            Item(Category.Code, "[Code] Various changes related to copyright and authors")
+            Code("[Code] Various changes related to copyright and authors")
                 .Commits("7a333184", "6e165025", "4b3746ab", "999b59b8", "3434ff89", "37c4749e", "2c2744ea", "80b8e3cf", "dd874ccd", "486381c9", "c59ca21c", "45ad52f1", "cb5e34f9", "ac9fa648", "3ffd9ad3", "4976c1ad", "73fe4578")
                 .Add();
             Feature("[Dev][Docs] Replace docs folder with Protocol Documentation")
@@ -478,7 +482,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .AnyWord("protocol documentation")
                 .Add();
 
-            Item(Category.Code, "[Build Infrastructure]")
+            Code("[Build Infrastructure]")
                 .AnyWord("scripts", ".pro", "buildenv", "travis-ci", "Travis-CI", "travis", "appveyor")
                 .Commits("17cdab70", "8c149069",
                 "7d649aa5",
@@ -494,11 +498,12 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 "0fdb7c17"
                 )
                 .Add();
-            Item(Category.Code, "[Tests]")
+            Code("[Tests]")
                 .StartsWithAny("src/tests", "tests/", "Test")
                 .AnyWord("OverlayTest", "tests")
+                .Commits("fdd837c1")
                 .Add();
-            Item(Category.Code, "Use our own domain for services").Commits("9db30159", "bd49fa59", "17ddc1a3", "4ed7af93").Add();
+            Code("Use our own domain for services").Commits("9db30159", "bd49fa59", "17ddc1a3", "4ed7af93").Add();
             Improvement("[Opus]")
                 .AnyWord("Opus", "opus")
                 .Add();
@@ -508,7 +513,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Improvement("[Qt 5]")
                 .AnyWord("Qt 5", "Qt5")
                 .Add();
-            Item(Category.Code, "Qt 4")
+            Code("Qt 4")
                 .AnyWord("Qt 4", "Qt4")
                 .Add();
             Improvement("[Shortcut]")
@@ -522,11 +527,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Improvement("[OSInfo]")
                 .StartsWithAny("OSInfo")
                 .Add();
-            Item(Category.G15Lcd, "[G15 LCD]")
-                .StartsWithAny("G15")
-                .AnyWord("LCD", "G15", "g15helper")
-                .Commits("1974ac0f")
-                .Add();
+            Code("[G15 LCD]").StartsWithAny("G15").AnyWord("LCD", "G15", "g15helper").Add();
 
             Improvement("[UI] Filtering")
                 .AnyWord("filter", "filtering")
@@ -535,12 +536,12 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .StartsWithAny("TextToSpeech")
                 .AnyWord("TextToSpeech", "text-to-speech")
                 .Add();
-            Item(Category.SSL, "[SSL]")
+            Code("[SSL]")
                 .ContainsAny("OPENSSL")
                 .AnyWord("SSL", "ssl", "sslCiphers", "sslciphers", "SSLCipherInfo", "lssl", "OpenSSL", "QSslSocket", "QSslSocket", "SSLCipherInfoTable", "OPENSSL")
                 .Add();
 
-            Item(Category.Code, "[Hardening] Hardening against accidental or deliberate misuse, security hardening")
+            Code("[Hardening] Hardening against accidental or deliberate misuse, security hardening")
                 .Commits("b6e17cac", "9837c4dc", "17fa695b", "d9ff1e94", "527d24ed", "e438a05f", "e740ea5e", "996a3df4"
                 , "73a1a98d"
                 , "fc24262f"
@@ -554,10 +555,9 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
         private static Builder Item(Category category, string title) => new Builder(category, title);
 
         private static Builder Feature(string title) => Item(Category.Features, title);
-        private static Builder Feature(string title, string commitHash) => Feature(title).Commits(commitHash);
         private static Builder Improvement(string title) => Item(Category.Improvements, title);
-        private static Builder Improvement(string title, string commitHash) => Improvement(title).Commits(commitHash);
         private static Builder Fix(string title) => Item(Category.Bugfixes, title);
+        private static Builder Code(string title) => Item(Category.Code, title);
 
         private class Builder
         {
