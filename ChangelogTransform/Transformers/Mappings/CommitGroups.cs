@@ -381,7 +381,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
 
             Fix("[GUI] OS-X styling issues").Commits("66d41efd").Add();
             Fix("[G15] ").Commits("b2f2277d").Add();
-            Fix("[G15] Disable G15 - We see a lot of crashes but have no testers and no way to debug/fix the issue for now").Commits("1974ac0f").Add();
+            Fix("[G15] Disable G15", "We see a lot of crashes but have no testers and no way to debug/fix the issue for now").Commits("1974ac0f").Add();
             Fix("Various Bugfixes")
                 .AnyWord("Fix", "Fixes", "Fixed", "fix")
                 .Commits("73a1a98d"
@@ -552,23 +552,24 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("Diffie-Hellman").AnyWord("Diffie-Hellman").Add();
         }
 
-        private static Builder Item(Category category, string title) => new Builder(category, title);
-
-        private static Builder Feature(string title) => Item(Category.Features, title);
-        private static Builder Improvement(string title) => Item(Category.Improvements, title);
-        private static Builder Fix(string title) => Item(Category.Bugfixes, title);
-        private static Builder Code(string title) => Item(Category.Code, title);
+        private static Builder Feature(string title, string? description = null) => Item(Category.Features, title, description);
+        private static Builder Improvement(string title, string? description = null) => Item(Category.Improvements, title, description);
+        private static Builder Fix(string title, string? description = null) => Item(Category.Bugfixes, title, description);
+        private static Builder Code(string title, string? description = null) => Item(Category.Code, title, description);
+        private static Builder Item(Category category, string title, string? description) => new Builder(category, title, description);
 
         private class Builder
         {
             private readonly Category Category;
             private readonly string Title;
             private readonly List<ISelector> Selectors = new List<ISelector>();
+            private readonly string? Description;
 
-            public Builder(Category category, string title)
+            public Builder(Category category, string title, string? description)
             {
                 Category = category;
                 Title = title;
+                Description = description;
             }
 
             public Builder Commits(params string[] hashes) { Selectors.Add(new CommitSelector(hashes)); return this; }
@@ -576,7 +577,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             public Builder AnyWord(params string[] words) { Selectors.AddRange(words.Select(word => new Selector(SelectorType.ContainsWord, word))); return this; }
             public Builder StartsWithAny(params string[] words) { Selectors.AddRange(words.Select(word => new Selector(SelectorType.StartsWith, word))); return this; }
             public Builder ContainsAny(params string[] words) { Selectors.AddRange(words.Select(word => new Selector(SelectorType.Contains, word))); return this; }
-            public void Add() => Groups.Add(new ItemMeta(Title, Category, Selectors.ToArray()));
+            public void Add() => Groups.Add(new ItemMeta(Title, Category, Description, Selectors.ToArray()));
         }
     }
 }

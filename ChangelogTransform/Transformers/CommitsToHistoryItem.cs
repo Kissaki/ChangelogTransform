@@ -27,7 +27,9 @@ namespace KCode.ChangelogTransform.Transformers
                         }
                     }
                 }
-                items.Add(new HistoryItem(itemMeta.Title, itemMeta.Category, itemCommits.ToArray()));
+                var item = new HistoryItem(itemMeta.Title, itemMeta.Category, itemCommits.ToArray());
+                item.Description = itemMeta.Description;
+                items.Add(item);
             }
 
             commits.RemoveAll(x => matchedCommits.Contains(x));

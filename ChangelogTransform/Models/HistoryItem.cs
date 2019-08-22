@@ -8,6 +8,7 @@ namespace KCode.ChangelogTransform.Models
         public string Title { get; }
         public Category Category { get; }
         public Commit[] Commits { get; }
+        public string? Description { get; set; }
 
         public HistoryItem(string title, Category category, params Commit[] commits)
         {

@@ -64,9 +64,10 @@ namespace KCode.ChangelogTransform.Writers
         protected string CreateRow(HistoryItem item)
         {
             var title = item.Title;
+            var desc = item.Description != null ? $"<br/>{item.Description}" : "";
             var prs = string.Join(", ", item.Commits.Where(x => x.PullRequestId.HasValue).Select(x => CreateCommitPrLink(x.PullRequestId ?? throw new InvalidOperationException())));
 
-            return @$"<tr><td class=""itemtitle"">{title}</td><td class=""pullrequests"">{prs}</td><td class=""commithashes"">{CreateCommitDetails(item.Commits)}</td></tr>";
+            return @$"<tr><td class=""itemtitle""><b>{title}</b>{desc}</td><td class=""pullrequests"">{prs}</td><td class=""commithashes"">{CreateCommitDetails(item.Commits)}</td></tr>";
         }
 
         protected string CreateCommitPrLink(int id)
