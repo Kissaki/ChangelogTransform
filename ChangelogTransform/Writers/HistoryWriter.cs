@@ -52,7 +52,7 @@ namespace KCode.ChangelogTransform.Writers
         {
             var sb = new StringBuilder();
             sb.AppendLine("<table>");
-            sb.AppendLine(@"<tr><th class=""pullrequests"">PRs</th><th class=""commithashes"">Commits</th><th class=""itemtitle"">Title</th></tr>");
+            sb.AppendLine(@"<tr><th class=""itemtitle"">Title</th><th class=""pullrequests"">PRs</th><th class=""commithashes"">Commits</th></tr>");
             foreach (var line in items)
             {
                 sb.AppendLine(CreateRow(line));
@@ -66,7 +66,7 @@ namespace KCode.ChangelogTransform.Writers
             var title = item.Title;
             var prs = string.Join(", ", item.Commits.Where(x => x.PullRequestId.HasValue).Select(x => CreateCommitPrLink(x.PullRequestId ?? throw new InvalidOperationException())));
 
-            return @$"<tr><td class=""pullrequests"">{prs}</td><td class=""commithashes"">{CreateCommitDetails(item.Commits)}</td><td class=""itemtitle"">{title}</td></tr>";
+            return @$"<tr><td class=""itemtitle"">{title}</td><td class=""pullrequests"">{prs}</td><td class=""commithashes"">{CreateCommitDetails(item.Commits)}</td></tr>";
         }
 
         protected string CreateCommitPrLink(int id)

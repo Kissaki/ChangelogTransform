@@ -18,9 +18,8 @@ namespace KCode.ChangelogTransform.Writers
             using var fs = TargetFile.CreateText();
 
             fs.WriteLine(@"<!DOCTYPE html><html><head><meta charset=""utf-8"">");
-            fs.WriteLine(@"<style>.pullrequests, .commithashes { text-align:right; }");
-            fs.WriteLine(@".itemtitle { text-align: left; }");
-            fs.WriteLine(@".commitlist { text-align:left; }");
+            fs.WriteLine(@"<style>");
+            fs.WriteLine(@"th, td { text-align: left; }");
             fs.WriteLine(@"</style>");
             fs.WriteLine(@"</head><body>");
             fs.WriteLine("Legend: The Admin label is split into tier levels to me more specific.");
