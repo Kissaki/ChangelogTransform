@@ -1,5 +1,4 @@
 ﻿using KCode.ChangelogTransform.Types;
-using System.Collections.Generic;
 
 namespace KCode.ChangelogTransform.Models
 {
