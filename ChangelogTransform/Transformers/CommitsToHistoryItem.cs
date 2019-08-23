@@ -12,12 +12,13 @@ namespace KCode.ChangelogTransform.Transformers
             commits.RemoveAll(c => IgnoredCommits.Commits.Contains(c.Hash));
 
             var items = new List<HistoryItem>();
-            var matchedCommits = new List<Commit>();
             foreach (var itemMeta in CommitGroups.Groups)
             {
                 var itemCommits = new List<Commit>();
                 foreach (var s in itemMeta.Selectors)
                 {
+                    var matchedCommits = new List<Commit>();
+
                     foreach (var c in commits)
                     {
                         if (s.IsMatch(c))
@@ -26,13 +27,14 @@ namespace KCode.ChangelogTransform.Transformers
                             matchedCommits.Add(c);
                         }
                     }
+
+                    commits.RemoveAll(x => matchedCommits.Contains(x));
                 }
+
                 var item = new HistoryItem(itemMeta.Title, itemMeta.Category, itemCommits.ToArray());
                 item.Description = itemMeta.Description;
                 items.Add(item);
             }
-
-            commits.RemoveAll(x => matchedCommits.Contains(x));
                 
             foreach (var commit in commits)
             {
