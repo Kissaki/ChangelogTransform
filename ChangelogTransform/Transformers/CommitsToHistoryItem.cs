@@ -31,8 +31,10 @@ namespace KCode.ChangelogTransform.Transformers
                     commits.RemoveAll(x => matchedCommits.Contains(x));
                 }
 
-                var item = new HistoryItem(itemMeta.Title, itemMeta.Category, itemCommits.ToArray());
-                item.Description = itemMeta.Description;
+                var item = new HistoryItem(itemMeta.Title, itemMeta.Category, itemCommits.ToArray())
+                {
+                    Description = itemMeta.Description
+                };
                 items.Add(item);
             }
                 
