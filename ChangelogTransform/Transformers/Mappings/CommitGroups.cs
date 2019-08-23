@@ -210,7 +210,6 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 "48277cb2",
                 "b230c285",
                 "af4b7526",
-                "2ad8c651",
                 "7e15d9e1",
                 "c91553c4",
                 "c014e04f",
@@ -222,38 +221,64 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
 
         static CommitGroups()
         {
-            Feature("[Linux] Add support for logging to syslog").AnyWord("syslog").Commits("08d7cb3a").Add();
-            Feature("[Admin T2] Support disabling SuperUser login (the initial and fallback administration account)").Commits("f990b90d", "aaf36667", "708ace45").Add();
-            Feature("[Admin T3]").Commits("dc3b78c9").Add();
-            Feature("TODO from [code]: mumble-app/mumble-exe").Add();
-            Feature("[Overlay] DirectX 11 Overlay").Commits("405d6e43").Add();
-            Feature("attenuate others").Commits("29a65c66").Add();
-            Feature("Use PBKDF2 for user password hashing").Commits("88cf21d6").Add();
+            Feature("Support per user volume adjustment").Commits("15f47f4f", "bd9bb666", "42c0684c", "a7798709", "1603d085").Add();
+            Feature("Support attenuate others on priority speaker", "Our priority speaker functionality offers some control over busy talking for marked individuals; namely lowering the volume of others when the priority speaker talks so you can hear the priority speaker over the others.<br><br>This attenuation is now configurable to also happen for the priority speakers themselves.").Commits("29a65c66").Add();
             Feature("[Settings] Support restarting Mumble client to apply setting changes where this is necessary (theme)").Commits("c431d376", "d08336e5", "3f0e2d2c", "459022de", "e061b72a").Add();
-            Feature("[User] Per user volume adjustment").Commits("15f47f4f", "bd9bb666", "42c0684c", "a7798709", "1603d085").Add();
-            Feature("Per channel user limit").Commits("84b1bcec", "c0879e57", "0b0c074d", "fea39f20").Add();
-            Feature("[User] save images from chat log").Commits("b0c9521e", "8722bdd0", "56fc9de7").Add();
-            Feature("[Settings] Drop expert mode").Commits("4090c212", "b16983f3").Add();
-            Feature("ViewCert: show certificate's SHA-256 fingerprint").Commits("a297a24b", "4f4e5ac2").Add();
-            Feature("[Dev][MinGW]").AnyWord("MinGW").Add();
+            Feature("[User] Support saving images from chat log").Commits("b0c9521e", "8722bdd0", "56fc9de7").Add();
+            Feature("[Theme] Provide official themes (dark, lite and classic) and improve theme-ability")
+                .ContainsAny("theme", "Theme")
+                .AnyWord("icon", "icons", "ApplicationPalette")
+                .Commits("7fbd9d43", "197f13ed")
+                .Add();
+            Feature("[User] Support sending clipboard content to chat").Commits("c05d4de5").Add();
+            Feature("[User] Allow Prefilling Add Server Dialog With HTTP URLs").Commits("3eae0dc6").Add();
+            Feature("[Overlay] Support DirectX 11").Commits("405d6e43").Add();
             Feature("[Settings] Add various configurable message types").Commits("f0fc66b6", "91f5e1cb", "6ed06bdd").Add();
-            Feature("[Admin T2] Human readable-friendly passwords").Commits("9ae2a7f5").Add();
+            Feature("[Settings] Drop expert mode", "The expert mode in configuration was initially introduced to make the settings easier and clearer to read, while allowing more proficient users to show all settings.<br>However hidden settings can be confusing and hard to discover. When supporting our users we often had to tell them to enable expert mode for more information or to configure something. This was of course not the intention of it.<br>We decided to drop expert mode in favor of a unified experiance and all options visible. To improve the user experience the layout of the settings themselves should be improved.").Commits("4090c212", "b16983f3").Add();
+            Feature("[Settings] Configure user dragging (like channel dragging)").Commits("ddd47649").Add();
+            Feature("[Settings] Configurable input channel mask for selecting which mic channels should be mixed").Commits("4481729e").Add();
+            Feature("[Settings] Settings: expose 'wasapi/role' setting to allow users to set WASAPI role", @"See <a href=""https://docs.microsoft.com/en-us/windows/win32/coreaudio/device-roles"">upstream Device Roles documentation</a>").Commits("d66eeebe").Add();
+            Feature("[GUI] Allow hiding Muble from the menu without minimizing").Commits("bf90fadd").Add();
+            Feature(@"[Audio] Support machine learning noise suppresion <a href=""https://people.xiph.org/~jm/demo/rnnoise/"">RNNoise</a> (Xiph)").Commits("e54f60f4", "17816971", "e3ad9552", "f6a6b661").Add();
+            Feature(@"[Audio] Support <a href=""https://en.wikipedia.org/wiki/JACK_Audio_Connection_Kit"">JACK</a> audio interface").Commits("1bf549d6", "08d9b9c7", "09c71b4d", "d3cf441c").Add();
+            Feature("In certificate information dialog show SHA-256 fingerprint as well").Commits("a297a24b", "4f4e5ac2").Add();
+
+            Feature("[Linux] Support logging to <b>syslog</b>").AnyWord("syslog").Commits("08d7cb3a").Add();
+            Feature("[Admin T1] Per channel user limit").Commits("84b1bcec", "c0879e57", "0b0c074d", "fea39f20").Add();
             Feature("[Admin T1] Configurable max channels per server").Commits("23eb3d17").Add();
-            Feature("[Audio] Add JACK Audio support").Commits("1bf549d6", "08d9b9c7", "09c71b4d", "d3cf441c").Add();
-            Feature("[Audio] RNNoise").Commits("e54f60f4", "17816971", "e3ad9552", "f6a6b661").Add();
-            Feature("[Build] Add Docker image build file").Commits("cbbc3425").Add();
-            Feature("[Build] AppImage").Commits("83bca04f").Add();
+            Feature("[Admin T2] Support disabling SuperUser login", "SuperUser is the initial and fallback administration account every server (and vserver) has. After the password has been set it can not be unset to disable login. This prevents the potential attack surface of the account. If necessary the a password can be generted or set again to be able to use it again.").Commits("f990b90d", "aaf36667", "708ace45").Add();
+            Feature("[Admin T2] Human readable passwords", "Depending on the font some characters may look very simlilar and consequently are hard to identify by users (for example 1 and l). By excluding ambiguous characters we generate passwords that cause less frustration in those cases.").Commits("9ae2a7f5").Add();
+            Feature("[Admin T2][SSl] Configurable cipher suites", "Add 'sslCiphers' option to allow server admins full control of Murmur's advertised TLS cipher suites").Commits("a3f93f78", "8ae710b5").Add();
+            Feature("[Admin T2][SSL] Configurable Diffie-Hellman parameters").AnyWord("Diffie-Hellman").Add();
+            Feature("[Admin T2][Server] Support PostgreSQL (Only sqlite remains the strictly supported and recommended one. This is secondary support like MySQL.)").Commits("9be606ef").Add();
+            Feature("[Admin T2][Server] Support SQLite WAL").Commits("cad1bac3").Add();
+            Feature("[Admin T2][Server] Optionally hide OS information from server (“privacy mode”)").Commits("65909b89").Add();
+
             Feature("[Admin T3] CLI RPC").Commits("bc5852d3").Add();
-            Feature("[Admin T2] Add 'sslCiphers' option to allow server admins full control of Murmur's advertised TLS cipher suites.").Commits("a3f93f78", "8ae710b5").Add();
-            Feature("[SSL] ").Commits("13bc12d3", "5b82a7a4").Add();
+            Feature("[Admin][GRPC] Add support for GRPC (Remote Procedure Call API for scripting the server)(CURRENTLY DISABLED)", "While the Mumble server can be built with it, the default and provided binaries do not have it enabled yet.")
+                .AnyWord("grpc")
+                .ContainsAny("gRPC", "GRPC")
+                .Commits("765f7807", "41502bb8")
+                .Add();
+            Feature("[Admin T3] Add “forceExternalAuth” config option to Murmur").Commits("dc3b78c9").Add();
+
+            Feature("[Dev][Docs] Replace docs folder with Protocol Documentation", "The protocol documentation is for anyone trying to communicate with Mumble clients or servers through network packets (rather than through the available APIs).")
+                .Commits("6eecd624", "eda74f21")
+                .AnyWord("protocol documentation")
+                .Add();
+            Feature("Use PBKDF2 for user password hashing").Commits("88cf21d6").Add();
+            Feature("TODO [Code] Introduce app and exe separation").Commits("f62db492").Add();
+            Feature("[Dev][MinGW] Support MinGW environment for compilation").AnyWord("MinGW").Add();
+            Feature("[Dev][Build] Add Docker image build file").Commits("cbbc3425").Add();
+            Feature("[Dev][Build] Provide AppImage (portable software package technology on Linux)").Commits("83bca04f").Add();
+            Feature("[SSL][Linux] Support handling multiple OpenSSL versions at the same time").Commits("13bc12d3", "5b82a7a4").Add();
+
             Feature("Various Features")
                 .Commits("6c096c31"
-                    , "c05d4de5"
                     , "9be606ef"
                     , "f3a1a6c7"
                     , "012cde52"
                     , "6ac0553a"
-                    , "ddd47649"
                     , "bf90fadd"
                     , "cad1bac3"
                     , "65909b89"
@@ -268,6 +293,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "80f1623b"
                     , "57396fac"
                     , "5b104e09"
+                    , "82c27fef"
                 )
                 .Add();
 
@@ -278,6 +304,66 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Improvement("XInput").StartsWithAny("XInput").AnyWord("XInput").Add();
             Improvement("[GUI] Various GUI improvements").Commits("c2be406a", "10abf369", "be4ae5b2", "4a99cde5", "46462cd7", "80602a3e", "455ab192", "a4e859e7").Add();
             Improvement("[GUI] CertWizard: Password requirement notice on import").Commits("8f94c763").Add();
+            Improvement("[Admin][SocketRPC]")
+                .AnyWord("SocketRPC")
+                .Add();
+            Improvement("[Dev][Protobuf]")
+                .Commits("4fe07a50")
+                .Add();
+            Improvement("[Translation] Translation updates")
+                .AnyWord("translation", "Translation", "translations", ".ts", "MumbleTransifexBot")
+                .Commits("52272e28", "de2e0868", "f1eb6425", "e6ac067c", "bc012541")
+                .Add();
+            Improvement("[Overlay]")
+                .StartsWithAny("Overlay", "overlay")
+                .AnyWord("overlay", "OverlayClient", "Overlay", "drawOverlay", "overlays", "OverlayPrivateWin", "overlay_exe", "overlay_gl", "OverlayConfig", "mumble_ol", "HardHook", "winhook", "Hooks")
+                .Commits("0e358bff", "c1e9102c")
+                .Add();
+            Improvement("[PositionalAudio]")
+                .StartsWithAny("plugins/", "Plugins")
+                .ContainsAny("positional audio", "Positional audio", "Positional Audio")
+                .AnyWord("PA", "Plugin", "Plugins", "plugins", "plugin")
+                .Commits("398b7733", "61ad05c9", "9f6c08b2", "80d03543", "de1d9834", "a235d1a6", "8ab0c4a6", "d2a1b5ca", "b9baebbb", "263607f5", "2733fed4")
+                .Add();
+            Improvement("[installer]")
+                .AnyWord("installer")
+                .Commits("9f5b01b9", "fcc2a390", "e7282052")
+                .Add();
+            Improvement("[3rdparty]")
+                .ContainsAny("3rdparty")
+                .Add();
+            Improvement("[Admin T1] Show ban message when someone bans").Commits("c522cff0").Add();
+            Improvement("[Ice]")
+                .AnyWord("Ice", "ice", "MurmurIce")
+                .Commits("b595d650")
+                .Add();
+            Improvement("[Opus]")
+                .AnyWord("Opus", "opus")
+                .Add();
+            Improvement("[Bonjour]")
+                .AnyWord("Bonjour", "bonjour")
+                .Add();
+            Improvement("[Qt 5]")
+                .AnyWord("Qt 5", "Qt5")
+                .Add();
+            Improvement("[Shortcut]")
+                .StartsWithAny("GlobalShortcut", "GlobalShortuct")
+                .AnyWord("GlobalShortcut", "Shortcut", "shortcut")
+                .Commits("8a1e0e85")
+                .Add();
+            Improvement("[Banlist]")
+                .AnyWord("BanList", "Banlist")
+                .Add();
+            Improvement("[OSInfo]")
+                .StartsWithAny("OSInfo")
+                .Add();
+            Improvement("[UI] Filtering")
+                .AnyWord("filter", "filtering")
+                .Add();
+            Improvement("[Text to Speech]")
+                .StartsWithAny("TextToSpeech")
+                .AnyWord("TextToSpeech", "text-to-speech")
+                .Add();
             Improvement("Various Documentation Improvements")
                 .Commits("83da4f17"
                     , "77b59e5d"
@@ -376,8 +462,10 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "4c82dd5e"
                     , "66f5ae91"
                     , "de27cd7b"
+                    , "2ad8c651"
                 )
                 .Add();
+            Improvement("[Admin T3]").Commits("7cff8ca5").Add();
 
             Fix("[GUI] OS-X styling issues").Commits("66d41efd").Add();
             Fix("[G15] ").Commits("b2f2277d").Add();
@@ -422,81 +510,24 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .Add();
             Fix("Configurable message flood protection").Commits("44b9004d", "f7221c14", "b44b1f21").Add();
 
-            Feature("[Theme]")
-                .ContainsAny("theme", "Theme")
-                .AnyWord("icon", "icons", "ApplicationPalette")
-                .Commits("7fbd9d43", "197f13ed")
-                .Add();
-            Feature("[Admin][GRPC] Add support for GRPC (Remote Procedure Call API for scripting the server)(CURRENTLY DISABLED)")
-                .AnyWord("grpc")
-                .ContainsAny("gRPC", "GRPC")
-                .Commits("765f7807", "41502bb8")
-                .Add();
-            Improvement("[Admin][SocketRPC]")
-                .AnyWord("SocketRPC")
-                .Add();
-            Improvement("[Dev][Protobuf]")
-                .Commits("4fe07a50")
-                .Add();
 
-            Improvement("[Translation] Translation updates")
-                .AnyWord("translation", "Translation", "translations", ".ts", "MumbleTransifexBot")
-                .Commits("52272e28", "de2e0868", "f1eb6425", "e6ac067c", "bc012541")
-                .Add();
-            Improvement("[Overlay]")
-                .StartsWithAny("Overlay", "overlay")
-                .AnyWord("overlay", "OverlayClient", "Overlay", "drawOverlay", "overlays", "OverlayPrivateWin", "overlay_exe", "overlay_gl", "OverlayConfig", "mumble_ol", "HardHook", "winhook", "Hooks")
-                .Commits("0e358bff", "c1e9102c")
-                .Add();
-            Improvement("[PositionalAudio]")
-                .StartsWithAny("plugins/", "Plugins")
-                .ContainsAny("positional audio", "Positional audio", "Positional Audio")
-                .AnyWord("PA", "Plugin", "Plugins", "plugins", "plugin")
-                .Commits("398b7733", "61ad05c9", "9f6c08b2", "80d03543", "de1d9834", "a235d1a6")
-                .Add();
-            Improvement("[installer]")
-                .AnyWord("installer")
-                .Commits("9f5b01b9", "fcc2a390", "e7282052")
-                .Add();
-            Improvement("[3rdparty]")
-                .ContainsAny("3rdparty")
-                .Add();
-            Improvement("[Admin T1] Show ban message when someone bans").Commits("c522cff0").Add();
-
-            Improvement("[Ice]")
-                .AnyWord("Ice", "ice", "MurmurIce")
-                .Commits("b595d650")
-                .Add();
-
+            Code("[PositionalAudio]").Commits("a0247d71", "ec3120c1", "ec87aa6b", "44ea8c86", "a3275f57", "c9814aed").Add();
             Code("[Code] Various code changes and improvements")
                 .Commits(CodeChanges)
                 .StartsWithAny("Bump version")
                 .ContainsAny("QT_", "Q_")
                 .AnyWord("submodule", "build", "compiler.pri", "header guard", "refac", "Refac", "refacs", "Refactor", "Refactoring", "guard define", ".pri", "qmake", "LICENSE", "license", "CHANGES", @"C\+\+11")
                 .Add();
-            Code("[Code] Various changes related to copyright and authors")
-                .Commits("7a333184", "6e165025", "4b3746ab", "999b59b8", "3434ff89", "37c4749e", "2c2744ea", "80b8e3cf", "dd874ccd", "486381c9", "c59ca21c", "45ad52f1", "cb5e34f9", "ac9fa648", "3ffd9ad3", "4976c1ad", "73fe4578")
-                .Add();
-            Feature("[Dev][Docs] Replace docs folder with Protocol Documentation")
-                .Commits("6eecd624", "eda74f21")
-                .AnyWord("protocol documentation")
+            Code("[Code] Copyright and authors", "Updates to copyright notices and authors")
+                .AnyWord("LICENSE")
+                .Commits("7a333184", "6e165025", "4b3746ab", "999b59b8", "3434ff89", "37c4749e", "2c2744ea", "80b8e3cf", "dd874ccd"
+                    , "486381c9", "c59ca21c", "45ad52f1", "cb5e34f9", "ac9fa648", "3ffd9ad3", "4976c1ad", "73fe4578", "bc5056cf", "50bc11d0", "a2b7020f", "52f385ce", "acfa0444", "e399de75")
                 .Add();
 
             Code("[Build Infrastructure]")
                 .AnyWord("scripts", ".pro", "buildenv", "travis-ci", "Travis-CI", "travis", "appveyor")
-                .Commits("17cdab70", "8c149069",
-                "7d649aa5",
-                "d74b5b04",
-                "82fa0e60",
-                "c03d8fcc",
-                "b2529590",
-                "53daac83",
-                "9946dc75",
-                "e562e92e",
-                "a429c763",
-                "630a17ba",
-                "0fdb7c17"
-                )
+                .Commits("17cdab70", "8c149069", "7d649aa5", "d74b5b04", "82fa0e60", "c03d8fcc", "b2529590", "53daac83", "9946dc75", "e562e92e", "a429c763", "630a17ba", "0fdb7c17", "fa98f6d6", "d4c8abd2", "11b5c285", "e03989ec", "a8d8c136", "c19ac8c0"
+                , "ca8f3dd4")
                 .Add();
             Code("[Tests]")
                 .StartsWithAny("src/tests", "tests/", "Test")
@@ -504,38 +535,10 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .Commits("fdd837c1")
                 .Add();
             Code("Use our own domain for services").Commits("9db30159", "bd49fa59", "17ddc1a3", "4ed7af93").Add();
-            Improvement("[Opus]")
-                .AnyWord("Opus", "opus")
-                .Add();
-            Improvement("[Bonjour]")
-                .AnyWord("Bonjour", "bonjour")
-                .Add();
-            Improvement("[Qt 5]")
-                .AnyWord("Qt 5", "Qt5")
-                .Add();
             Code("Qt 4")
                 .AnyWord("Qt 4", "Qt4")
                 .Add();
-            Improvement("[Shortcut]")
-                .StartsWithAny("GlobalShortcut", "GlobalShortuct")
-                .AnyWord("GlobalShortcut", "Shortcut", "shortcut")
-                .Commits("8a1e0e85")
-                .Add();
-            Improvement("[Banlist]")
-                .AnyWord("BanList", "Banlist")
-                .Add();
-            Improvement("[OSInfo]")
-                .StartsWithAny("OSInfo")
-                .Add();
             Code("[G15 LCD]").StartsWithAny("G15").AnyWord("LCD", "G15", "g15helper").Add();
-
-            Improvement("[UI] Filtering")
-                .AnyWord("filter", "filtering")
-                .Add();
-            Improvement("[Text to Speech]")
-                .StartsWithAny("TextToSpeech")
-                .AnyWord("TextToSpeech", "text-to-speech")
-                .Add();
             Code("[SSL]")
                 .ContainsAny("OPENSSL")
                 .AnyWord("SSL", "ssl", "sslCiphers", "sslciphers", "SSLCipherInfo", "lssl", "OpenSSL", "QSslSocket", "QSslSocket", "SSLCipherInfoTable", "OPENSSL")
@@ -547,9 +550,6 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 , "fc24262f"
                 )
                 .Add();
-
-            Improvement("[Admin T3]").Commits("7cff8ca5").Add();
-            Feature("Diffie-Hellman").AnyWord("Diffie-Hellman").Add();
         }
 
         private static Builder Feature(string title, string? description = null) => Item(Category.Features, title, description);
