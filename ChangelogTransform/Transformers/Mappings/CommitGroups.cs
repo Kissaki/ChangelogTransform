@@ -221,11 +221,21 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 "eda8adec",
                 "aa263e92",
                 "d41923d5",
+                "5a033b8b",
+                "525995d1",
         };
 
         public static List<ItemMeta> Groups { get; } = new List<ItemMeta>();
 
         static CommitGroups()
+        {
+            DefineFeatures();
+            DefineImprovements();
+            DefineFixes();
+            DefineCode();
+        }
+
+        private static void DefineFeatures()
         {
             Feature("[User] Support per user volume adjustment").Commits("15f47f4f", "bd9bb666", "42c0684c", "a7798709", "1603d085").Add();
             Feature("[User] Support attenuate others on priority speaker", "Our priority speaker functionality offers some control over busy talking for marked individuals; namely lowering the volume of others when the priority speaker talks so you can hear the priority speaker over the others.<br><br>This attenuation is now configurable to also happen for the priority speakers themselves.").Commits("29a65c66").Add();
@@ -240,6 +250,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[User] Allow Prefilling Add Server Dialog With HTTP URLs").Commits("3eae0dc6").Add();
             Feature("[User][UI] Filtering").Commits("304bf438", "8f30d0c2", "42d74df5", "15afc05e", "983b6dba", "d35468c7", "51ecb7a3", "679eacd7", "b5d37583").Add();
             Feature("[Client] Distribute x64 (“64 bit”) version", "Supporting a new architecture can be quite a bit of work. We have implemented various spawner processes for adequate Overlay and Positional Audio support, and moved the main client application into a separate assembly. See also the corresponding sections for [PositionalAudio] and [Overlay].").Add();
+            Feature("[User][Removed] Drop support for external images.", "Loading external images without a proxy (e.g. through the server) is a privacy concern, amd less control over what is downloaded. By using external links users could have been tracked.<br>The external images were never add-able in the Send Text Message dialog directly, only through opening its source tab and manually adding html img tags.<br>Sending message-embedded images continues to work.<br>In the future support for external images may be added again, but only with an adequate proxying of images (e.g. the server loads them and provides them to users to protect them).").Commits("31254397").Add();
 
             Feature("[User][PositionalAudio] Add x64 support").Commits("a0247d71", "19efac30", "51af7852", "f28e9b73", "f63d834c", "ee1a6718", "30ec38da", "b96bd072", "769855b4", "9345abed", "ec3120c1").Add();
             Feature("[User][PositionalAudio] linux").Commits("2396a998", "d364932d", "4efd506a", "de1d9834", "a235d1a6", "58a7ff54", "f064a8d0").Add();
@@ -261,7 +272,8 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature(@"[User][Overlay] Make ""no-overlay"" option available also on Windows").Commits("e42e6ca9").Add();
             Feature(@"[User][Overlay][Removal] Remove usable Mumble client in Overlay").Commits("4f87be8a", "ad6acf22").Add();
 
-            Feature("[User][Settings] Add various configurable message types").Commits("f0fc66b6", "91f5e1cb", "6ed06bdd", "46cb8a37", "07a142d1").Add();
+            Feature("[User][Settings] Add various configurable message types").Commits("f0fc66b6", "91f5e1cb", "6ed06bdd", "46cb8a37", "07a142d1", "651e4d0d", "2ad8c651", "1098afcc", "07c8e00e").Add();
+            Feature("[User][Settings] Add per-message-type setting to toggle window highlight (if not active)").Commits("ce8fd36d").Add();
             Feature("[User][Settings] Drop expert mode", "The expert mode in configuration was initially introduced to make the settings easier and clearer to read, while allowing more proficient users to show all settings.<br>However hidden settings can be confusing and hard to discover. When supporting our users we often had to tell them to enable expert mode for more information or to configure something. This was of course not the intention of it.<br>We decided to drop expert mode in favor of a unified experiance and all options visible. To improve the user experience the layout of the settings themselves should be improved.").Commits("4090c212", "b16983f3").Add();
             Feature("[User][Settings] Configure user dragging (like channel dragging)").Commits("ddd47649").Add();
             Feature("[User][Settings] Configurable input channel mask for selecting which mic channels should be mixed").Commits("4481729e").Add();
@@ -277,6 +289,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[Admin T1] Show ban message when someone bans").Commits("c522cff0").Add();
             Feature("[Admin T2] Support disabling SuperUser login", "SuperUser is the initial and fallback administration account every server (and vserver) has. After the password has been set it can not be unset to disable login. This prevents the potential attack surface of the account. If necessary the a password can be generted or set again to be able to use it again.").Commits("f990b90d", "aaf36667", "708ace45").Add();
             Feature("[Admin T2] Human readable passwords", "Depending on the font some characters may look very simlilar and consequently are hard to identify by users (for example 1 and l). By excluding ambiguous characters we generate passwords that cause less frustration in those cases.").Commits("9ae2a7f5").Add();
+            Feature("[Admin T2] Support systemd").Commits("57396fac", "6db171ef").Add();
             Feature("[Admin T2][SSl] Configurable cipher suites", "Add 'sslCiphers' option to allow server admins full control of Murmur's advertised TLS cipher suites").Commits("a3f93f78", "8ae710b5").Add();
             Feature("[Admin T2][SSL] Configurable Diffie-Hellman parameters").AnyWord("Diffie-Hellman").Add();
             Feature("[Admin T2][Server] Support PostgreSQL (Only sqlite remains the strictly supported and recommended one. This is secondary support like MySQL.)").Commits("9be606ef").Add();
@@ -320,17 +333,19 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "a5651973"
                     , "44dc94e9"
                     , "80f1623b"
-                    , "57396fac"
                     , "5b104e09"
                     , "82c27fef"
                     , "76b95d1a"
                 )
                 .Add();
+        }
 
+        private static void DefineImprovements()
+        {
             Improvement("[Translation] Translation updates")
-                .AnyWord("translation", "Translation", "translations", @"\.ts", "MumbleTransifexBot")
-                .Commits("52272e28", "de2e0868", "f1eb6425", "e6ac067c", "bc012541")
-                .Add();
+                            .AnyWord("translation", "Translation", "translations", @"\.ts", "MumbleTransifexBot")
+                            .Commits("52272e28", "de2e0868", "f1eb6425", "e6ac067c", "bc012541", "ce413bd9")
+                            .Add();
             Improvement("[Settings] Open sound file selection dialog with current path").Commits("7c2d1a3f").Add();
             Improvement("XInput").StartsWithAny("XInput").AnyWord("XInput").Add();
             Improvement("[Accessibility] Improve minimal mode window").Commits("47a81f7b").Add();
@@ -384,102 +399,21 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "a69916bc"
                     , "948331ee"
                     , "df8b774f"
-                )
-                .Add();
-
-            Improvement("Various Improvements")
-                .Commits("754fc008"
-            #region Various Improvements
-                    , "679eacd7"
-                    , "b422e0a9"
-                    , "f07f0c86"
-                    , "cde56107"
-                    , "d9d81a99"
                     , "3e0112da"
-                    , "d3e00dee"
-                    , "1eefaab0"
-                    , "b2d938ba"
-                    , "b7d9387b"
-                    , "97cf80de"
-                    , "d299360f"
-                    , "1375022b"
-                    , "dd7cc7ca"
-                    , "3c280a66"
-                    , "76475381"
-                    , "71ff77b2"
-                    , "d9785f9f"
-                    , "44a08461"
                     , "9cc1c0a7"
-                    , "ad19d157"
-                    , "5a033b8b"
-                    , "525995d1"
-                    , "9ba92b58"
-                    , "f5affcd4"
-                    , "67ed33f3"
-                    , "445cdf0e"
-                    , "2c0d37f9"
-                    , "b2282e74"
-                    , "4e459a9b"
-                    , "ab78e6c9"
-                    , "7fbe61e5"
-                    , "6db171ef"
-                    , "b4d48ef4"
-                    , "ce413bd9"
-                    , "e8027bd6"
-                    , "8e195e17"
-                    , "21cd4ddc"
-                    , "c1b6110b"
-                    , "f32343d5"
-                    , "4862897a"
-                    , "9e8a40f6"
-                    , "925587af"
-                    , "b5825472"
-                    , "08af66d5"
-                    , "703f8c7f"
-                    , "b83316ad"
-                    , "33f8448d"
-                    , "25ceebb3"
-                    , "69cdaee4"
-                    , "a2e6cb8c"
-                    , "cd8fbbdc"
-                    , "a50a120b"
-                    , "a1a969e7"
-                    , "c522cff0"
-                    , "e6cde15c"
-                    , "2d6e099d"
-                    , "4add9cec"
-                    , "b2e37e68"
-                    , "0d76ff92"
-                    , "153c0aa9"
-                    , "b5aef4ca"
-                    , "fa818bdf"
-                    , "cb952e06"
-                    , "dbab0f70"
-                    , "871240e7"
-                    , "4e430f74"
-                    , "65c25009"
-                    , "6aba9842"
-                    , "5c9a46e9"
-                    , "6cd17bdc"
-                    , "31254397"
-                    , "2c24ee0f"
-                    , "a1899695"
-            #endregion
-                    , "651e4d0d"
-                    , "ce8fd36d"
-                    , "26c732fb"
-                    , "1098afcc"
-                    , "07c8e00e"
-                    , "9b19e609"
-                    , "b9815665"
-                    , "4c82dd5e"
-                    , "66f5ae91"
-                    , "de27cd7b"
-                    , "2ad8c651"
-                    , "d58990c3"
                 )
                 .Add();
 
+            Improvement("[User] Improve Connect Dialog").Commits("3c280a66", "71ff77b2", "b2282e74", "4e459a9b", "ab78e6c9", "7fbe61e5", "08af66d5", "66f5ae91").Add();
+            Improvement("[User][UI] Various Mumble client UI improvements").Commits("b9815665", "dd7cc7ca", "d9d81a99", "d3e00dee", "b2d938ba", "d58990c3", "1375022b", "754fc008", "d9785f9f", "44a08461", "ad19d157", "9ba92b58", "f5affcd4", "67ed33f3", "e8027bd6", "8e195e17", "21cd4ddc", "c1b6110b", "9e8a40f6", "b5825472", "b83316ad", "25ceebb3", "69cdaee4", "e6cde15c", "4add9cec", "153c0aa9", "b5aef4ca", "fa818bdf", "cb952e06", "dbab0f70", "871240e7", "4e430f74", "5c9a46e9", "6cd17bdc", "a1899695", "26c732fb", "9b19e609", "4c82dd5e").Add();
+            Improvement("[Admin T1][UI]").Commits("f07f0c86").Add();
+            Improvement("[Server]").Commits("4862897a", "97cf80de", "33f8448d", "703f8c7f", "0d76ff92").Add();
+            Improvement("Technical changes").Commits("925587af", "b7d9387b", "b422e0a9", "d299360f", "76475381", "445cdf0e", "2c0d37f9", "de27cd7b", "b4d48ef4", "f32343d5", "a2e6cb8c", "cd8fbbdc", "a50a120b", "a1a969e7", "b2e37e68", "65c25009", "6aba9842", "2c24ee0f").Add();
+            Improvement("App metadata").Commits("1eefaab0", "2d6e099d").Add();
+        }
+
+        private static void DefineFixes()
+        {
             Fix("[User][Text-to-Speech] Mac OS-X").Commits("15f76107", "c2f75bbd", "1bd57bd0").Add();
             Fix("[User][Text-to-Speech]").Commits("d3470c30").Add();
             Fix("[Overlay] Various Fixes").Commits("03258363", "10b2d000", "07e055ff", "6e9a7e7c", "3282887f", "da004cf8", "ad1ed221").Add();
@@ -528,7 +462,10 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                     , "bd8f92b9"
                 )
                 .Add();
+        }
 
+        private static void DefineCode()
+        {
             Code("[PositionalAudio]").Commits("a0247d71", "ec3120c1", "ec87aa6b", "44ea8c86", "a3275f57", "c9814aed").Add();
             Code("[Overlay][Temporary]").Commits("2f07778", "8f65051f").Add();
             Code("[Overlay] Various Changes")
