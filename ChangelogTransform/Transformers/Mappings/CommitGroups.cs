@@ -244,11 +244,11 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[User][Theme] Provide official themes (dark, lite and classic) and improve theme-ability")
                 .ContainsAny("theme", "Theme")
                 .AnyWord("icon", "icons", "ApplicationPalette")
-                .Commits("7fbd9d43", "197f13ed")
+                .Commits("7fbd9d43", "197f13ed", "54244962")
                 .Add();
             Feature("[User] Support sending clipboard content to chat").Commits("c05d4de5").Add();
             Feature("[User] Allow Prefilling Add Server Dialog With HTTP URLs").Commits("3eae0dc6").Add();
-            Feature("[User][UI] Filtering").Commits("304bf438", "8f30d0c2", "42d74df5", "15afc05e", "983b6dba", "d35468c7", "51ecb7a3", "679eacd7", "b5d37583").Add();
+            Feature("[User][UI] Support channel filtering").Commits("304bf438", "8f30d0c2", "42d74df5", "15afc05e", "983b6dba", "d35468c7", "679eacd7", "b5d37583", "c0be6cbd").Add();
             Feature("[Client] Distribute x64 (“64 bit”) version", "Supporting a new architecture can be quite a bit of work. We have implemented various spawner processes for adequate Overlay and Positional Audio support, and moved the main client application into a separate assembly. See also the corresponding sections for [PositionalAudio] and [Overlay].").Add();
             Feature("[User][Removed] Drop support for external images.", "Loading external images without a proxy (e.g. through the server) is a privacy concern, amd less control over what is downloaded. By using external links users could have been tracked.<br>The external images were never add-able in the Send Text Message dialog directly, only through opening its source tab and manually adding html img tags.<br>Sending message-embedded images continues to work.<br>In the future support for external images may be added again, but only with an adequate proxying of images (e.g. the server loads them and provides them to users to protect them).").Commits("31254397").Add();
 
@@ -260,7 +260,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[User][PositionalAudio] ff xiv").Commits("8bbb34d7", "0bc6d7d4", "acd664a0").Add();
             Feature("[User][PositionalAudio] bf1").Commits("c1cd99e7", "e9a34bdf", "30c779ca", "c553e046", "4d3d4d86", "50540fdc", "46fb4054").Add();
             Feature("[User][PositionalAudio] Battlefield2: Support ingame squad and voice status identity").Commits("ffa3be97").Add();
-            Feature("[User][PositionalAudio] rocket league").Commits("80d03543", "95b3cc16", "ff09c041", "68606fee", "6a782176", "fbf7900d", "fe3ec08f", "89b0f31c", "6bad7ae4", "e8849a4f", "549197aa", "5e73de90", "208ff152", "1971dd0d", "043a7d7a", "6f843e5e", "3eec33ae", "eb0a2a0f").Add();
+            Feature("[User][PositionalAudio] rocket league").Commits("80d03543", "95b3cc16", "ff09c041", "68606fee", "6a782176", "fbf7900d", "fe3ec08f", "89b0f31c", "6bad7ae4", "e8849a4f", "549197aa", "5e73de90", "208ff152", "1971dd0d", "043a7d7a", "6f843e5e", "3eec33ae", "eb0a2a0f", "48cc538b").Add();
             Feature("[User][PositionalAudio] bf4").Commits("a30f1dd4", "d157e718", "691d80ae", "bed423ea", "38dbec19", "e7e61970").Add();
             Feature("[User][PositionalAudio][Removed] Removed Star Wars Online support due to lack of maintainer").Commits("9de6718d").Add();
 
@@ -291,10 +291,11 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             Feature("[Admin T2] Human readable passwords", "Depending on the font some characters may look very simlilar and consequently are hard to identify by users (for example 1 and l). By excluding ambiguous characters we generate passwords that cause less frustration in those cases.").Commits("9ae2a7f5").Add();
             Feature("[Admin T2] Support systemd").Commits("57396fac", "6db171ef").Add();
             Feature("[Admin T2][SSl] Configurable cipher suites", "Add 'sslCiphers' option to allow server admins full control of Murmur's advertised TLS cipher suites").Commits("a3f93f78", "8ae710b5").Add();
-            Feature("[Admin T2][SSL] Configurable Diffie-Hellman parameters").AnyWord("Diffie-Hellman").Add();
+            Feature("[Admin T2][SSL] Configurable Diffie-Hellman parameters").AnyWord("Diffie-Hellman").Commits("4795ae57").Add();
             Feature("[Admin T2][Server] Support PostgreSQL (Only sqlite remains the strictly supported and recommended one. This is secondary support like MySQL.)").Commits("9be606ef").Add();
             Feature("[Admin T2][Server] Support SQLite WAL").Commits("cad1bac3").Add();
             Feature("[Admin T2][Server] Optionally hide OS information from server (“privacy mode”)").Commits("65909b89").Add();
+            Feature("[Admin T2][Server] Support for SRV DNS entries").Commits("48f3eb94").Add();
 
             Feature("[Admin T3] CLI RPC").Commits("bc5852d3").Add();
             Feature("[Admin][GRPC] Add support for GRPC (Remote Procedure Call API for scripting the server)(CURRENTLY DISABLED)", "While the Mumble server can be built with it, the default and provided binaries do not have it enabled yet.")
@@ -308,7 +309,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 .Commits("6eecd624", "eda74f21")
                 .AnyWord("protocol documentation")
                 .Add();
-            Feature("Use PBKDF2 for user password hashing").Commits("88cf21d6").Add();
+            Feature("Use PBKDF2 for user password hashing").Commits("88cf21d6", "15072a45").Add();
             Feature("?TODO [Code] Introduce app and exe separation").Commits("f62db492", "7f976ed1").Add();
             Feature("[Dev][MinGW] Support MinGW environment for compilation").AnyWord("MinGW").Add();
             Feature("[Dev][Build] Add Docker image build file").Commits("cbbc3425").Add();
@@ -344,13 +345,14 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
         {
             Improvement("[Translation] Translation updates")
                             .AnyWord("translation", "Translation", "translations", @"\.ts", "MumbleTransifexBot")
-                            .Commits("52272e28", "de2e0868", "f1eb6425", "e6ac067c", "bc012541", "ce413bd9")
+                            .Commits("52272e28", "de2e0868", "f1eb6425", "e6ac067c", "bc012541", "ce413bd9", "3223c8aa")
                             .Add();
             Improvement("[Settings] Open sound file selection dialog with current path").Commits("7c2d1a3f").Add();
             Improvement("XInput").StartsWithAny("XInput").AnyWord("XInput").Add();
             Improvement("[Accessibility] Improve minimal mode window").Commits("47a81f7b").Add();
             Improvement("[GUI] Various GUI improvements").Commits("c2be406a", "10abf369", "be4ae5b2", "4a99cde5", "46462cd7", "80602a3e", "455ab192", "a4e859e7").Add();
             Improvement("[GUI] CertWizard: Password requirement notice on import").Commits("8f94c763").Add();
+            Improvement("[Settings] Show language code in language selection").Commits("2438f31e").Add();
             Improvement("[User][Text-to-Speech] Unix: Use Mumble's language setting, or the system locale for TTS language").Commits("1aae05eb").Add();
             Improvement("[Overlay] Change default overlay avatar alignment to centered").Commits("ed2bf499").Add();
             Improvement("[Overlay] Overlay blacklist default rules").Commits("207f66ce", "2c0c0edd", "e5b6dac2", "f1dbd922", "7f69c512", "df448598", "f732ec4c", "31abc89c", "ef72e3ea", "95222b96", "6e820e8d", "623d2afa", "b7ad9d66", "623d2afa", "b7ad9d66", "15d18eea", "14648736", "248859cf").Add();
@@ -404,7 +406,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 )
                 .Add();
 
-            Improvement("[User] Improve Connect Dialog").Commits("3c280a66", "71ff77b2", "b2282e74", "4e459a9b", "ab78e6c9", "7fbe61e5", "08af66d5", "66f5ae91").Add();
+            Improvement("[User] Improve Connect Dialog").Commits("3c280a66", "71ff77b2", "b2282e74", "4e459a9b", "ab78e6c9", "7fbe61e5", "08af66d5", "66f5ae91", "78d0db8d").Add();
             Improvement("[User][UI] Various Mumble client UI improvements").Commits("b9815665", "dd7cc7ca", "d9d81a99", "d3e00dee", "b2d938ba", "d58990c3", "1375022b", "754fc008", "d9785f9f", "44a08461", "ad19d157", "9ba92b58", "f5affcd4", "67ed33f3", "e8027bd6", "8e195e17", "21cd4ddc", "c1b6110b", "9e8a40f6", "b5825472", "b83316ad", "25ceebb3", "69cdaee4", "e6cde15c", "4add9cec", "153c0aa9", "b5aef4ca", "fa818bdf", "cb952e06", "dbab0f70", "871240e7", "4e430f74", "5c9a46e9", "6cd17bdc", "a1899695", "26c732fb", "9b19e609", "4c82dd5e").Add();
             Improvement("[Admin T1][UI]").Commits("f07f0c86").Add();
             Improvement("[Server]").Commits("4862897a", "97cf80de", "33f8448d", "703f8c7f", "0d76ff92").Add();
@@ -416,52 +418,20 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
         {
             Fix("[User][Text-to-Speech] Mac OS-X").Commits("15f76107", "c2f75bbd", "1bd57bd0").Add();
             Fix("[User][Text-to-Speech]").Commits("d3470c30").Add();
-            Fix("[Overlay] Various Fixes").Commits("03258363", "10b2d000", "07e055ff", "6e9a7e7c", "3282887f", "da004cf8", "ad1ed221").Add();
+            Fix("[User][Recorder] Various recorder fixes").Commits("9a47e050", "2ca559b2", "fc4e1e3b", "8e22f9a2", "fc0e20bb", "329dd4ee", "1c00533b").Add();
+            Fix("[User][Overlay] Various fixes").Commits("03258363", "10b2d000", "07e055ff", "6e9a7e7c", "3282887f", "da004cf8", "ad1ed221", "b0705324", "ab12d356", "fb56112d").Add();
+            Fix("[User][UI] Various Mumble client UI fixes").Commits("6e09508e", "5b9e899c", "a6f76100", "75976ec2", "12eac3c6", "13c6e582", "12563866", "2b8fc35f", "f1e3e096", "edaca2ea", "7c4fbee2"
+                , "dc87fa23", "cde294f3", "f35ef659", "78d71984", "70451a60", "db4a591c", "97c34f4c", "909c13c5"
+            ).Add();
             Fix("[PositionalAudio] Fix double free in WASAPI no positional audio fallback code-path").Commits("fca62787").Add();
             Fix("[PositionalAudio] 'manual' plugin on OS X with Qt 5").Commits("e0b884e6", "be75138d", "3cc24199").Add();
             Fix("[GUI] OS-X styling issues").Commits("66d41efd").Add();
             Fix("[G15] ").Commits("b2f2277d").Add();
             Fix("[G15] Disable G15", "We see a lot of crashes but have no testers and no way to debug/fix the issue for now").Commits("1974ac0f").Add();
+            Fix("[Admin T1] Various admin fixes").Commits("44f1055d").Add();
             Fix("[Admin T2] Configurable message flood protection").Commits("44b9004d", "f7221c14", "b44b1f21").Add();
-            Fix("Various Bugfixes")
-                .AnyWord("Fix", "Fixes", "Fixed", "fix")
-                .Commits("73a1a98d"
-                    , "8ad8812b"
-                    , "916dcc0c"
-                    , "77233edf"
-                    , "ed424afa"
-                    , "ea165cde"
-                    , "abad339f"
-                    , "63f35d6a"
-                    // VoiceRecorder
-                    , "1c00533b"
-                    , "78604d85"
-                    , "491789c2"
-                    , "06e19e6f"
-                    , "a1ff21bd"
-                    , "ebf6d23f"
-                    , "2612b67d"
-                    , "6fe55478"
-                    , "612d6b52"
-                    , "23fa9b39"
-                    , "779496c5"
-                    , "d0ced447"
-                    , "fd9c7941"
-                    , "c45298e4"
-                    , "06d3785a"
-                    , "c3e29055"
-                    , "1a1bd8c1"
-                    , "27189b63"
-                    , "eb63d0b1"
-                    , "4566f092"
-                    , "b25db3e1"
-                    , "86197ff2"
-                    , "d7ef5178"
-                    , "16c1145b"
-                    , "b126c4e2"
-                    , "bd8f92b9"
-                )
-                .Add();
+            Fix("[Server] Various server fixes").Commits("58c06f26", "4a67eebc", "7c5a9fb3", "c3236b30", "d39e7739", "d110e564", "f5e03d6c").Add();
+            Fix("Technical fixes").Commits("26829872", "b4f50507", "e934c1e6", "81698118", "0840dd45", "af38fdb8", "aa90739b", "6195761d").Add();
         }
 
         private static void DefineCode()
@@ -483,35 +453,31 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 , "b20d9e94", "f657478f", "7a82dc9a", "6be0de43", "48cc538b", "b82b6eb6", "e83d01c7", "fba1d65b", "28bb66e0", "e31b7165", "f3c64b38", "370fae6b", "c9814aed", "f735a632", "308e4f72"
                 , "e9c558ff", "e2ad9c05", "c936b99d", "53daac83", "ace19170", "82a8e7de", "fc0ab935", "6e2f7102", "173aa7df", "ee432795"
             ).Add();
-            Code("[Code] Various code changes and improvements")
-                .Commits(CodeChanges)
-                .StartsWithAny("Bump version")
-                .ContainsAny("QT_", "Q_")
-                .AnyWord("submodule", "build", @"compiler\.pri", "header guard", "refac", "Refac", "refacs", "Refactor", "Refactoring", "guard define", @"\.pri", "qmake", "LICENSE", "license", "CHANGES", @"C\+\+11")
-                .Add();
-            Code("[Code] Copyright and authors", "Updates to copyright notices and authors")
+            Code("[Code] Copyright, licenses and authors", "Updates to copyright notices and authors")
                 .AnyWord("LICENSE")
                 .Commits("7a333184", "6e165025", "4b3746ab", "999b59b8", "3434ff89", "37c4749e", "2c2744ea", "80b8e3cf", "dd874ccd", "a2be9156", "486381c9", "c59ca21c", "45ad52f1", "cb5e34f9"
-                    , "ac9fa648", "3ffd9ad3", "4976c1ad", "73fe4578", "bc5056cf", "50bc11d0", "a2b7020f", "52f385ce", "acfa0444", "e399de75", "a9384f11", "96d87db4"
+                    , "ac9fa648", "3ffd9ad3", "4976c1ad", "73fe4578", "bc5056cf", "50bc11d0", "a2b7020f", "52f385ce", "acfa0444", "e399de75", "a9384f11", "96d87db4", "2fd6a3cc", "a2be9156"
                 )
                 .Add();
 
             Code("[Build Infrastructure]")
                 .AnyWord("scripts", @"\.pro", "buildenv", "travis-ci", "Travis-CI", "travis", "appveyor")
-                .Commits("17cdab70", "8c149069", "7d649aa5", "d74b5b04", "82fa0e60", "c03d8fcc", "b2529590", "53daac83", "9946dc75", "e562e92e", "a429c763", "630a17ba", "0fdb7c17", "fa98f6d6", "d4c8abd2", "11b5c285", "e03989ec", "a8d8c136", "c19ac8c0"
-                , "ca8f3dd4")
-                .Add();
+                .Commits("17cdab70", "8c149069", "7d649aa5", "d74b5b04", "82fa0e60", "c03d8fcc", "b2529590", "53daac83", "9946dc75", "e562e92e", "a429c763", "630a17ba", "0fdb7c17", "fa98f6d6"
+                    , "d4c8abd2", "11b5c285", "e03989ec", "a8d8c136", "c19ac8c0", "ca8f3dd4", "a3187870", "a8d8c136"
+                ).Add();
             Code("[Tests]")
                 .StartsWithAny("src/tests", "tests/", "Test")
                 .AnyWord("OverlayTest", "tests")
-                .Commits("fdd837c1")
+                .Commits("fdd837c1", "9e6e6bb6")
                 .Add();
             Code("[Infrastructire] Use our own domain for service endpoints").Commits("9db30159", "bd49fa59", "17ddc1a3", "4ed7af93", "acb69be2").Add();
             Code("Qt 4")
                 .AnyWord("Qt 4", "Qt4")
+                .Commits("1c1dac5e", "ef9ffea5", "46fc40e1", "487e032d")
                 .Add();
             Code("[Qt 5]")
                 .AnyWord("Qt 5", "Qt5")
+                .Commits("6f2552de", "ef6353bf", "d855b67d", "9a426b1d", "c84916f9", "84a8bbcc", "841bff8b")
                 .Add();
             Code("[Shortcut]")
                 .StartsWithAny("GlobalShortcut", "GlobalShortuct")
@@ -533,6 +499,21 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
                 , "73a1a98d"
                 , "fc24262f"
                 )
+                .Add();
+            Code("[Code] Fix warnings").Commits("3af16511", "2c892fee", "5acf4af5", "d3d6920d", "51ab40a4", "8ecc3d1e", "e21ce495", "7b882d0b", "68205b93", "39b8b07b", "66ff6d6d", "f9b2db45"
+                , "e0cb6e01", "c9c9d0e7", "648f35b0", "b828a0a3", "e4c80dac", "671598b7", "86824a3c", "dd147960", "51bb441c", "76d2ea20", "c495c579", "ec07f61b", "708212ab", "306e1f7a", "a8bed298"
+                , "159aad4f", "2757a0c2", "5f79a3e4", "c9814aed", "81b00bfc"
+            ).Add();
+            Code("[Code] Various code fixes").Commits("2c0bfa0b", "d6ba8cf0", "9f1b01a4", "4c16f25b", "a5009b64", "10c902fa", "234ed23a", "3206530f", "5fb25734", "1070b402", "53107ca4", "68547c9a"
+                , "93427aff", "daba32f6", "fcd2de6a", "72cd86c9", "cffa565d", "173aa7df", "94b05db3", "e2ad9c05", "b466faae", "8a10b932", "43109d10", "4eef649e", "5a31a63a", "905461f8", "50fc0ca7"
+                , "2667fe41", "8758cf5a", "e414bd3b", "1b2b642f", "54895649", "5a5a3b27", "176c041c", "4411059e", "1b203cdc", "1273ba90", "5039340a"
+            ).Add();
+            Code("[Code] Various code changes and improvements")
+                .Commits(CodeChanges)
+                .StartsWithAny("Bump version")
+                .ContainsAny("QT_", "Q_")
+                .AnyWord("submodule", "build", @"compiler\.pri", "header guard", "refac", "Refac", "refacs", "Refactor", "Refactoring", "guard define", @"\.pri", "qmake", "LICENSE", "license", "CHANGES", @"C\+\+11")
+                .Commits("00392d1a", "4efabcea", "6095134b", "a7d103f6", "f05e6571")
                 .Add();
         }
 
