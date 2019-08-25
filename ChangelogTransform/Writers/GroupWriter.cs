@@ -17,35 +17,43 @@ namespace KCode.ChangelogTransform.Writers
         {
             using var fs = TargetFile.CreateText();
 
-            fs.WriteLine(@"<!DOCTYPE html><html><head><meta charset=""utf-8"">");
-            fs.WriteLine(@"<style>");
-            fs.WriteLine(@"th, td { text-align: left; }");
-            fs.WriteLine(@".itemtitle { width: 120px; }");
-            fs.WriteLine(@".itemtitle b { white-space: nowrap; }");
-            fs.WriteLine(@"tbody { vertical-align: top; }");
-            fs.WriteLine(@"</style>");
-            fs.WriteLine(@"</head><body>");
-            fs.WriteLine("Legend: The Admin label is split into tier levels to me more specific.");
-            fs.WriteLine("T1 = Tier 1: Using the Mumble client in GUI administration features.");
-            fs.WriteLine("T2 = Tier 2: OS lifecycle management, server-local command line control, Process control, meta-servers (one process multiple servers)");
-            fs.WriteLine("T3 = Tier 3: Scripting via API, etc");
-
+            using var bodyWriter = new StringWriter();
             foreach (var x in history.GroupBy(x => x.Category))
             {
                 var category = x.Key;
-                WriteCategory(fs, category, x.AsEnumerable(), isOpen: category == Category.Misc);
+                WriteCategory(bodyWriter, category, x.AsEnumerable(), isOpen: category == Category.Misc);
             }
 
-            fs.Write("</body></html>");
+            var style = @"
+                th, td {{ text-align: left; }}
+                .itemtitle {{ width: 120px; }}
+                .itemtitle b {{ white-space: nowrap; }}
+                tbody {{ vertical-align: top; }}
+            ";
+            var html = @$"
+            <!DOCTYPE html><html>
+            <head>
+                <meta charset=""utf-8"">
+                <style>{style}</style>
+            </head><body>
+            Legend: The Admin label is split into tier levels to me more specific.
+            T1 = Tier 1: Using the Mumble client in GUI administration features.
+            T2 = Tier 2: OS lifecycle management, server-local command line control, Process control, meta-servers (one process multiple servers)
+            T3 = Tier 3: Scripting via API, etc
+            {bodyWriter.ToString()}
+            </body></html>
+            ";
+            fs.Write(html);
         }
 
-        protected void WriteCategory(StreamWriter fs, Category cateory, IEnumerable<HistoryItem> items, bool isOpen)
+        protected void WriteCategory(TextWriter tw, Category cateory, IEnumerable<HistoryItem> items, bool isOpen)
         {
             var openAttribute = isOpen ? "open" : "";
-            fs.WriteLine(@$"<details {openAttribute}><summary><h2 style=""display:inline"">{CategoryName(cateory)}</h2> ({items.Count()})</summary>");
-            fs.Write(CreateTable(items));
-            fs.WriteLine("</details>");
+            tw.Write($@"
+                <details {openAttribute}><summary><h2 style=""display:inline"">{CategoryName(cateory)}</h2> ({items.Count()})</summary>
+                {CreateTable(items)}
+                </details>
+            ");
         }
-
     }
 }
