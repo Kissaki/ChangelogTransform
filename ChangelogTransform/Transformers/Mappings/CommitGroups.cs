@@ -233,7 +233,7 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
         private static void DefineFeatures()
         {
             Feature("[User] Support per user volume adjustment").Commits("15f47f4f", "bd9bb666", "42c0684c", "a7798709", "1603d085", "c31269ad").Add();
-            Feature("[User] Support attenuate others on priority speaker", "Our priority speaker functionality offers some control over busy talking for marked individuals; namely lowering the volume of others when the priority speaker talks so you can hear the priority speaker over the others.<br><br>This attenuation is now configurable to also happen for the priority speakers themselves.").Commits("29a65c66").Add();
+            Feature("[User] Support attenuate others on priority speaker", "Our priority speaker functionality offers some control over busy talking for marked individuals; namely lowering the volume of others when the priority speaker talks so you can hear the priority speaker over the others.<br>This attenuation is now configurable to also happen for the priority speakers themselves.").Commits("29a65c66").Add();
             Feature("[User][Settings] Support restarting Mumble client to apply setting changes where this is necessary (theme)").Commits("c431d376", "d08336e5", "3f0e2d2c", "459022de", "e061b72a").Add();
             Feature("[User] Support saving images from chat log").Commits("b0c9521e", "8722bdd0", "56fc9de7").Add();
             Feature("[User][Theme] Provide official themes (dark, lite and classic) and improve theme-ability")
