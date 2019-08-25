@@ -13,6 +13,12 @@ namespace KCode.ChangelogTransform.Transformers.Mappings
             "0c157216",
             // Easter egg fix
             "8d3521ce",
+            // Mumble-SA-2014-001 fix is part of 1.2.5
+            "85064923",
+            // Mumble-SA-2014-002 fix is part of 1.2.5
+            "d3be3d7b",
+            // Mumble-SA-2014-005 fix is part of 1.2.6
+            "f91386b3",
         };
     }
 }
