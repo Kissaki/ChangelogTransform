@@ -17,7 +17,7 @@ namespace KCode.ChangelogTransform
         public string TargetRef { get; }
         public FileInfo Store { get; }
 
-        private string GitLogParameters { get => $"log {SourceRef}..{TargetRef} --first-parent --reverse --oneline"; }
+        private string GitLogParameters { get => $"log {SourceRef}..{TargetRef} --first-parent --reverse --oneline --date=short --pretty=format:%h%x09%s:%ad%x09"; }
 
         public GitLog(DirectoryInfo di, string fromRef, string toRef, FileInfo store)
         {
